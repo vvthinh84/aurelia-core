@@ -1,0 +1,14 @@
+{
+  "name": "lockr",
+  "_cacheHeaders": {
+    "ETag": "\"8734bbf4111ec69580dc317a4d1f1684fd503998\"",
+    "Content-Length": "1176",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:8734bbf41",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/tsironis/lockr/master/lockr.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/tsironis/lockr/master/lockr.js",
+  "_direct": true
+}

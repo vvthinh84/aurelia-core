@@ -1,0 +1,332 @@
+<template>
+  <section>
+
+    <h3 style="margin-bottom: 30px;"><b>QUẢN LÝ DOANH NGHIỆP</b></h3>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body" style="margin-left: 0px; ">
+          <!--Form-->
+          <div class="container-fluid">
+            <form>
+               <div class="row">
+                   <!-- COL 1 -->
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                          <div class="form-group">
+                          <label for="">Mã doanh nghiệp:</label>
+                             <input type="text" class="form-control" ref="filtermadn" >
+                          </div>
+                           <div class="form-group">
+                          <label for="">Tên doanh nghiệp:</label>
+                             <input type="text" class="form-control" ref="filtertendn" >
+                          </div>
+                      </div>
+
+                    <!-- END COL 1 -->
+                        <!-- COL 2 -->
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                        <label for="">Tỉnh:</label>
+                        <input type="text" class="form-control" ref="filtertinh">
+                        </div>
+                         <div class="form-group">
+                        <label for="">Quận:</label>
+                        <input type="text" class="form-control" ref="filterquan" >
+                        </div>
+
+                      </div>
+                    <!-- END COL 2 -->
+                        <!-- COL 3 -->
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                      <div class="form-group">
+                      <div class="row">
+                        <div class="col-xs-6">
+                        <label class="control-label" style="" for="">Ngày thêm mới DN từ</label>
+                        <input id="txtFilterDateStart" class="form-control"  value.bind="dateStartFilter" style="width: 100% !important" >
+                        </div>
+                        <div class="col-xs-6">
+                        <label class="control-label" style="" for="">đến</label>
+                        <input id="txtFilterDateEnd" class="form-control"  value.bind="dateEndFilter" style="width: 100% !important" >
+                        </div>
+                      </div>
+                      </div>
+                       <div class="form-group">
+                           <label for="">Trạng thái:</label>
+                            <select name="filterStatus" ref="filterStatus" class="form-control">
+                            <option value="">- Tất cả -</option>
+                            <option value="A">Active</option>
+                            <option value="D">Deactive</option>
+                            </select>
+                       </div>
+                         <div class="form-group">
+                         <div class="row">
+                                <div class="col-xs-9">
+                                </div>
+                              <div class="col-xs-3">
+
+                            <button type="submit" class="btn btn-success"  >
+                            <span class="glyphicon glyphicon-search"></span> Tìm kiếm
+                            </div>
+                            </div>
+                        </button>
+                         </div>
+
+                      </div>
+                    <!-- END COL 3 -->
+
+
+               </div>
+            </form>
+          </div>
+
+
+
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary btn-sm" click.delegate="AddDN()" data-toggle="modal" data-target="#addEditDN"  data-backdrop="static" data-keyboard="false">
+        <span class="glyphicon glyphicon-plus"></span> THÊM MỚI DOANH NGHIỆP
+      </button>
+    </div>
+
+    <!--Table-->
+    <div class="panel panel-default">
+    <div class="panel-heading"><b>Kết quả tìm kiếm</b> - Thêm mới từ ngày ${dateStartFilter |  dateFormat:'DD/MM/YYYY'} đến ngày ${dateEndFilter |  dateFormat:'DD/MM/YYYY'} </div>
+    <div class="panel-body">
+       <div class="row">
+         <div class="form-group col-md-10">
+         </div>
+         <div class="form-group col-md-2">
+                            <label class="col">Tổng số lượng tìm được:</label>
+                            <span style="color:blue">${GiftDN.items.length}</span>
+          </div>
+       </div>
+
+    <div class="table-responsive">
+      <table id="tableGifts" class="table table-bordered">
+        <thead>
+          <tr>
+          <th>STT</th>
+          <th>Ngày thêm mới DN</th>
+          <th>Mã doanh nghiệp</th>
+          <th>Tên doanh nghiệp</th>
+          <th>Địa chỉ</th>
+          <th>Quận huyện</th>
+          <th>Tỉnh</th>
+          <th>Họ tên người đại diện</th>
+          <th>Chức vụ người đại diện</th>
+          <th>SĐT người đại diện</th>
+          <th>Email người đại diện</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+
+          </tr>
+        </thead>
+        <tbody ref="GiftDN" items.bind="ListDN | filterByStatus:filterStatus.value | filterByName:filtermadn.value |filterByName:filtertendn.value |filterByName:filtertinh.value |filterByName:filterquan.value|filterByRangeDate:dateStartFilter:dateEndFilter">
+          <tr repeat.for="DN of GiftDN.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+          <td> ${(current-1)*10+$index+1}</td>
+          <td>${DN.CreatedDate | dateFormat:'M/D/YYYY HH:mm:ss '}</td>
+          <td>${DN.BusinessCode}</td>
+          <td>${DN.Name}</td>
+          <td>${DN.Address}</td>
+          <td>${DN.QuanHuyen}</td>
+          <td>${DN.Tinhthanh}</td>
+          <td>${DN.listNguoiDaiDien.HoTen}</td>
+          <td>${DN.listNguoiDaiDien.ChucVu}</td>
+          <td>${DN.listNguoiDaiDien.Sdt}</td>
+          <td>${DN.listNguoiDaiDien.Email}</td>
+          <td>${DN.Status |status}</td>
+
+            <td>
+              <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.EditDN(DN)" data-toggle="modal" data-target="#addEditDN"  data-backdrop="static" data-keyboard="false">
+                <span class="glyphicon glyphicon-edit"></span> Chỉnh Sửa
+              </button>
+
+              <!--<button if.bind="DN.Status==='D'" type="button" class="btn btn-success btn-xs" click.delegate="$parent.ChangeDNStatus(DN)">
+                <span class="glyphicon glyphicon-ok"></span> Active
+              </button>
+              <button if.bind="DN.Status==='A'" type="button" class="btn btn-warning btn-xs" click.delegate="$parent.ChangeDNStatus(DN)">
+                <span class="glyphicon glyphicon-remove"></span> Deactive
+              </button>-->
+                 <button type="button" class="btn btn-danger btn-xs" click.delegate="$parent.DelDN(DN)">
+                <span class="glyphicon glyphicon-trash"></span> Xóa
+              </button>
+            </td>
+          </tr>
+          <tr if.bind="GiftDN.items.length > 0">
+            <td colspan="20">
+              <pagination page-size.bind="pagesize" total.bind="GiftDN.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+            </td>
+          </tr>
+          <tr if.bind="!ListDN || GiftDN.items.length <= 0">
+            <td colspan="20">
+              Không tìm thấy doanh nghiệp.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    </div>
+    </div>
+    <!--end table-->
+    <!-- EDIT DN FORM -->
+    <div id="addEditDN" ref="addEditDN" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 if.bind="isEdit" class="modal-title">Cập nhật Doanh nghiệp</h4>
+            <h4 if.bind="!isEdit" class="modal-title">Thêm mới Doanh nghiệp</h4>
+          </div>
+
+          <div class="modal-body">
+
+              <!--body-->
+
+
+            <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin doanh nghiệp</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <!--Form-->
+                         <div class="col-md-6">
+                             <span>Thông tin doanh nghiệp</span> &nbsp; &nbsp; &nbsp;
+                        <hr>
+             <form class="form-horizontal" role="form" >
+
+                   <div class="form-group " if.bind="isEdit">
+
+                                 <h5><label  class="col-md-3 control-label">Mã doanh nghiệp:</label></h5>
+                                <div class="col-md-7">
+                                      <label class="col-md-3 control-label"> ${_CodeDN}</label>
+                               </div>
+                    </div>
+                      <div class="form-group " if.bind="isEdit">
+                                 <h5><label class="col-md-3 control-label">Ngày thêm mới DN:</label></h5>
+                                <div class="col-md-7">
+                                      <label class="col-md-3 control-label"> ${_CreateDateDN |dateFormat:'M/D/YYYY'}</label>
+                               </div>
+                    </div>
+
+                    <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Tên doanh nghiệp</label></h5>
+                    <div class="col-md-7">
+                    <input class="form-control" type="text" id="giftName" value.bind="currentDN.Name"  required="required"/>
+                    </div>
+                    </div>
+
+
+
+                    <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Địa chỉ</label></h5>
+                    <div class="col-md-7">
+                    <input class="form-control" type="text" value.bind="currentDN.Address"  required="required"  />
+                    </div>
+                    </div>
+
+                       <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Tỉnh Thành</label></h5>
+                    <div class="col-md-7">
+                    <select  value.bind="tinhthanhid" class="form-control" id="tinhthanid" >
+                      <option value="0">Tỉnh/Thành Phố</option>
+                      <option repeat.for="status of AddressDW" value.bind="status.Code">${status.Name}</option>
+                      </select>
+                    </div>
+                    </div>
+
+                       <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Quận/Huyện</label></h5>
+                    <div class="col-md-7">
+                   <select  value.bind="quanhuyenid" class="form-control" id="huyenid" >
+                  <option value.bind="0">Quận/huyện</option>
+                  <option repeat.for="status of ListWard" value.bind="status.Code">${status.Name}</option>
+                  </select>
+                    </div>
+                    </div>
+
+
+
+                       <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Trạng thái</label></h5>
+                    <div class="col-md-7">
+                    <select value.bind="currentDN.Status" class="form-control" required="required">
+                    <option value="A">Active</option>
+                    <option value="D">Deactive</option>
+                    </select>
+                    </div>
+                    </div>
+
+             </form>
+            </div>
+        <div class="col-md-6">
+         <span>Thông tin người đại diện</span> &nbsp; &nbsp; &nbsp;
+                        <hr>
+        <form class="form-horizontal" role="form" >
+
+                    <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Họ tên:</label></h5>
+                    <div class="col-md-7">
+                    <input class="form-control" type="text" value.bind="currentDN.listNguoiDaiDien.HoTen" required="required"  />
+                    </div>
+                    </div>
+
+
+                    <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Chức vụ</label></h5>
+                    <div class="col-md-7">
+                    <input class="form-control" type="text" value.bind="currentDN.listNguoiDaiDien.ChucVu"  required="required"  />
+                    </div>
+                    </div>
+
+                     <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Số điện thoại</label></h5>
+                    <div class="col-md-7">
+                   <input class="form-control" type="text" value.bind="currentDN.listNguoiDaiDien.Sdt"  required="required"  />
+                    </div>
+                    </div>
+
+                       <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Email</label></h5>
+                    <div class="col-md-7">
+                   <input class="form-control" type="text" value.bind="currentDN.listNguoiDaiDien.Email" required="required"  />
+                    </div>
+                    </div>
+        </form>
+        </div>
+
+        <!--khung-->
+           </div>
+        </div>
+
+          <div class="modal-footer">
+            <span style="float: left; color: red">(*) là các trường bắt buộc nhập</span>
+            <button if.bind="isEdit" type="button" class="btn btn-danger" click.delegate="SubmitGift()">Cập nhật</button>
+            <button if.bind="!isEdit" type="button" class="btn btn-danger" click.delegate="SubmitGift()">Thêm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    span.select2-container {
+        width: 100% !important;
+      }
+
+      .select2-container .select2-selection--single {
+        height: 34px !important;
+      }
+      .form-inline .form-control {
+          width: 100% !important;
+      }
+      .select2-container--default .select2-selection--single {
+        border: 1px solid #ccc !important;
+      }
+
+    </style>
+</template>

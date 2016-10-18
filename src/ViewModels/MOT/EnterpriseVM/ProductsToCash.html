@@ -1,0 +1,173 @@
+<template>
+    <style>
+        .form-horizontal .control-label  {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+        </style>
+    <section>
+          <h3 style="margin-bottom: 30px;"><b>THÊM MỚI ĐƠN HÀNG TRẢ TIỀN MẶT</b></h3>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="panel panel-default " style="margin-top: -2px !important; width:100%">
+                    <div class="panel-heading">
+                        <h4>Thông tin khách hàng</h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>Thông tin khách hàng</span> &nbsp; &nbsp; &nbsp; 
+                        <hr>
+                        <form   class="form-horizontal" role="form" validate.bind="validation">
+                            <div class="form-group required">
+                                      <h5><label class="col-md-3 control-label">Họ và Tên</label></h5>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" value.bind="User.Name">
+                                </div>
+                            </div>
+                          
+                             <div class="form-group  required">
+                              <h5><label class="col-md-3 control-label">Giới tính</label></h5>
+                                 <div class="col-md-7">
+                                   <select   class="form-control"  value.bind="User.Sex" >
+
+                                     <option repeat.for="gd of Gender"  value=${gd.value}>${gd.text}</option>
+                                   </select>
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group ">
+                                <h5><label class="col-md-3 control-label">CMND</label></h5>
+                                 <div class="col-md-7 ">
+                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control control-label" id="" value.bind="User.Cmnd" >
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group required">
+                                <h5><label class="col-md-3 control-label">Số điện thoại</label></h5>
+                                 <div class="col-md-7">
+                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control control-label" id="" value.bind="User.Phone" required="true">
+                                </div>
+                            </div>
+
+                                    
+                             <div class="form-group">
+                                <label  class="col-md-3 control-label">Email</label>
+                                 <div class="col-md-7">
+                                    <input type="email"   class="form-control"  value.bind="User.Email"  data-errormessage-type-mismatch="Lỗi định dạng email.">
+                               
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group required">
+                              <h5><label class="col-md-3 control-label" >Tên công ty</label></h5>
+                                <div class="col-md-7">
+                                  <select  value.bind="tam" class="form-control"  disabled="true">
+                                    <option repeat.for="status of companybusiness" value.bind="status.BusinessCode">${status.Name}</option>
+                                  </select>
+                                
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <h5><label class="col-md-3 control-label" >Mã nhân viên</label></h5>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.MaNv">
+                                </div>
+                            </div>
+
+                       
+
+
+
+
+
+
+                            <br>
+                            <span>Thông tin đơn hàng</span>
+                            <hr>
+
+                             <div class="form-group form-group required">
+                                <h5><label class="col-md-3 control-label">Địa chỉ giao hàng</label></h5>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" required="true" value.bind="User.Address">
+
+                                    <div class="row">
+                                    </br>
+                                    <div class="col-md-6">
+                                      <select  value.bind="tinhthanhid" class="form-control">
+                                        <option value="0">Tỉnh/Thành Phố</option>
+                                        <option repeat.for="status of AddressDW" value.bind="status.Code">${status.Name}</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <select  value.bind="quanhuyenid" class="form-control">
+                                        <option value="">Quận/huyện</option>
+                                          <option repeat.for="status of ListWard" value.bind="status.Code">${status.Name}</option>
+
+
+                                      </select>
+                                    </div>
+                                  </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="height: 40px;">
+                      <span style="float: right; color: red">(*) là các trường bắt buộc nhập</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                   <div class="panel panel-default" style="margin-top: -2px !important;">
+                       <div class="panel-heading">
+                           <h4>Thông tin sản phẩm</h4>
+                       </div>
+                       <div class="panel-body">
+                           <div class="col-md-6">
+                                 <img model.bind="item" src="${product.ImageDetail| convertToImange}" alt="" height="200px" width="200px" class="col-md-offset-0" >
+
+                           	  <div class="form-group">
+                                  <h5 style="margin-left: 0px; font-size: 15px;">${product.ProductName}</h5>
+                                  <h6 style="margin-left: 0px; font-size: 15px;">Giá: ${product.Price |  vietNamDong}</h6>
+                                   <label for="inputType"  style="margin-left:-68px !important;margin-top: 16px;width:65px">Số lượng</label><span style="color:red;">*</span>
+                                   <div class="col-md-3">
+                                       <input type="number" min="1" style="margin-left:90px; width:64px" class="form-control"   value.bind="User.SoLuong" >
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                                <label for="">Chọn màu</label>
+                                <hr>
+                                 <div class="form-group" class="checkbox" repeat.for="item of Data" style="margin-bottom:1px">
+                                   <input type="radio" name="color" model.bind="item" checked.bind="$parent.selectedColor" style="height:10px; margin-left:-23px !important;" class="col-md-1">
+                                   <div class="col-md-1">
+                                      <img src="${item.Thumbs| convertToImange}" alt="" style="height:50px;width:50px;margin-left:-34px">
+                                   </div>
+
+                               </div>
+
+
+                       </div>
+                   </div>
+                   <div class="form-group">
+                   	 <button class="btn btn-primary" click.delegate='addToCart()'>Tiếp tục</button>
+                   	 <button class="btn btn-primary"   click.delegate='goToBack()'>Quay lại</button>
+                   </div>
+               </div>
+
+    </section>
+
+    <style>
+   
+
+    </style>
+</template>

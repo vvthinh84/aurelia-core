@@ -1,0 +1,196 @@
+<template>
+    <style>
+      .form-horizontal .control-label  {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+      </style>
+    <section>
+        <h3 style="margin-bottom: 30px;"><b>THÊM MỚI ĐƠN HÀNG TRÃ TIỀN MẶT</b></h3>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin khách hàng</h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>Thông tin khách hàng</span> &nbsp; &nbsp; &nbsp;
+                        <hr>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group form-group required">
+                                <label class="col-md-3"><h5>Họ tên</h5></label>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" value.bind="Detail.Name" required="true" disabled="true">
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group required">
+                                <label class="col-md-3"><h5>Giới tính</h5></label>
+                                 <div class="col-md-7">
+                                   <select value.two-way="Detail.Sex"  class="form-control">
+
+                                     <option value.bind="Detail.Sex">${Detail.Sex}</option>
+                                   </select>
+                                </div>
+                            </div>
+
+
+                           
+
+                             <div class="form-group form-group required">
+                                  <label class="col-md-3"><h5>CMND</h5></label>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" value.bind="Detail.Cmnd" required="true" disabled="true">
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group required">
+                                <label class="col-md-3"><h5>Số điện thoại</h5></label>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" value.bind="Detail.Phone" required="true" disabled="true">
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-md-3"><h5>Email</h5></label>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" value.bind="Detail.Email" disabled="true">
+                                </div>
+                            </div>
+
+                             <div class="form-group form-group required">
+                                <label class="col-md-3"><h5>Tên công ty</h5></label>
+                                <div class="col-md-7">
+                                  <select name="" id="" class="form-control"  style="width:100%;height:30px" value.bind="Detail.TenCongty">
+
+                                       <option value="">${Detail.TenCongty}</option>
+                                     </select>
+
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-md-3"><h5>Mã nhân viên</h5></label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" value.bind="Detail.MaNv" id="" disabled="true">
+                                </div>
+                            </div>
+
+                      
+                            <br>
+                            <span>Thông tin đơn hàng</span>
+                            <hr>
+
+                             <div class="form-group form-group required">
+                                  <label class="col-md-3"><h5>Địa chỉ giao hàng</h5></label>
+                                 <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" value.bind="Detail.AddressShipping" required="true" disabled="true">
+
+                                    <div class="row">
+                                    </br>
+                                    <div class="col-md-4">
+                                         <select name="" id="" value.bind="Detail.ListDetails[0].TinhThanh" style="width:100%;height:30px" disabled>
+                                         <option repeat.for="item of AddressTinh" value.bind="item.Code">${item.Name}</option>\
+                                         </select>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <select name="" id="" value.bind="Detail.ListDetails[0].DistictCode" style="width:100%;height:30px" disabled>
+                                         <option repeat.for="item of ListHuyen" value.bind="item.Code">${item.Name}</option>\
+                                         </select>
+                                   </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="height: 40px;">
+                      <span style="float: right; color: red">(*) Thông tin bắt buộc</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4>Danh sách sản phẩm</h4></div>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Màu</th>
+                      <th>Giá(VNĐ)</th>
+                      <th>Số lượng</th>
+                      <th>Hình ảnh</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr repeat.for="obj of Cart"> -->
+                    <tr>
+                      <th scope="row">${$index+1}</th>
+
+                      <td>${Detail.ListDetails[0].ProductName}</td>
+                      <td>${Detail.ListDetails[0].ColorName}</td>
+                      <td>${Detail.ListDetails[0].Price}</td>
+                      <td>${Detail.ListDetails[0].Amount}</td>
+                      <td>
+                        <img src="${Detail.ListDetails[0].ImageDetail | convertToImange}" alt="" width="68px" />
+                      </td>
+                      <!-- <td>
+                        <button type="button" class="btn btn-default" click.trigger="$parent.deleteProduct(obj)">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                      </td> -->
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Tổng tiền (chưa giảm): </td>
+                      <td><span style="color: #286090">${tong| vietNamDong}</span> </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Giảm giá: </td>
+
+                      <td><span style="color: #286090">${tong | vietNamDong}</span> </td>
+                      <!-- <td><span style="color: #286090">${OrderInfo.Discount| vietNamDong}</span> </td> -->
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>TỔNG TIỀN THANH TOÁN: </td>
+                      <td><b style="font-size: larger; color: #286090">${tong | vietNamDong}</b> </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+
+                   <div >
+                   	 <button class="btn btn-primary"  click.delegate='CreatedOrder()' >Tạo đơn hàng</button>
+                       <button class="btn btn-primary"><a href="#EnterpriseMenu/ProductsToCash?productId=${Detail.ListDetails[0].ProductId}" style="color:white">Quay lại</a></button>
+
+                   </div>
+
+
+               </div>
+
+    </section>
+
+    <style>
+   
+    </style>
+</template>

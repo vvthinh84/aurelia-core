@@ -1,0 +1,386 @@
+<template>
+  <section>
+<!--Body-->
+<div class="content-quayso">
+
+<div class="AllPage" style="margin-top: 71px;margin-bottom: 15px;">
+    <div style="">
+        <div class="header_bg">     
+        </div>
+    </div>
+    <div class="body">
+        <form method="GET" action="/" id="form_select_options">
+        <input type="hidden" name="dispatch" value="quay_so.samsung_note7">
+        <div class="option-fields">
+            <div>
+                <select name="week" id="el_week" style="height: 35px;" value.bind="postObject.Tuan" >
+                                        <option value="">CHỌN TUẦN</option>
+                                        <option value="1">Tuần 1</option>
+                                        <option value="2">Tuần 2</option>
+                                        <option value="3">Tuần 3</option>
+                                        <option value="4">Tuần 4</option>
+                                        <option value="5">Tuần 5</option>
+                                        <option value="6">Tuần 6</option>
+                                        <option value="6">Tuần 7</option>
+                                    </select>
+            </div>
+        </div>
+        </form>
+    <!--GAM1-->
+        <div class="game-wrap" id="quayso_AB">
+            <div class="p" style="padding-top: 10px;"></div>
+            <div class="result_title">
+                <div class="p">Mã khách hàng</div>
+            </div>
+            <div class="ms_btn">
+                <ul>
+                    <li><input class="text_input" type="text" value="000000000000000" name="masotrungthuong" id="quayso1" readonly="1" value.bind="quaySoResult"></li>
+                    <li>
+                        <input type="button" id="btn_quay_AB" click.delegate="play1()">
+                        <!--<input type="hidden" name="AB_chance" value="1" id="el_AB_chance">-->
+                    </li>
+                </ul>
+                <div class="correct-info" id="quay_error"></div>
+            </div>
+
+            <div class="result" id="list_result">
+                <div class="h2">Danh sách trúng 05 IPhone 5s 16Gb Silver/ Gray</div>
+                <!--Danh sach KH -->
+                <table class="table table-striped">
+                <thead class="danhsach_kh">
+                    
+                </thead>
+                <tbody class="danhsach_kh"> 
+                    <tr>
+                        <th>#</th>
+                        <th>Mã khách hàng</th>
+                        <th>Họ và tên</th>
+                        <th>Điện thoại</th>
+                        <th>Chi nhánh</th>
+                        <th>Trúng thưởng</th>
+                    </tr>
+                   <tr repeat.for = "item of DSKhachHangTrung1">
+                      <td><span class="kh_index">${$index+1}</span></td>
+                        <td><span class="MaKh"> ${item.MaKh }</span></td>
+                        <td><span class="tenkh">${item.TenKH} </span></td>
+                        <td><span class="sdt"> ${item.Phone}</span></td>
+                        <td><span class="chi_nhanh"> ${item.MaCn} </span></td>
+                        <td><span class="trung_thuong">IPhone 5s 16Gb Silver/ Gray </span></td>
+                   </tr>
+                </tbody>
+                
+
+                </table>
+
+            </div>
+        </div>
+         <!--END GAM1-->
+
+          <!--GAM2-->
+        <div class="game-wrap" id="quayso">
+            <div class="p" style="padding-top: 10px;"></div>
+            <div class="result_title">
+                <div class="p">Mã khách hàng</div>
+            </div>
+            <div class="chinhanh" style="display: none;">
+                <a href="javascript://" id="btn_chon_chinhanh">Chọn chi nhánh</a>
+            </div>
+            <div class="ms_btn">
+                <ul>
+                      <li><input class="text_input" type="text" value="000000000000000" name="masotrungthuong" id="quayso1" readonly="1" value.bind="quaySoResult2"></li>
+                    <li>
+                        <input type="button" id="btn_quay" click.delegate="play2()">
+                        <!--<input type="hidden" name="AB_chance" value="2" id="el_AB_chance">-->
+                    </li>
+                    
+                </ul>
+                <div class="correct-info" id="quay_error"></div>
+            </div>
+
+            <div class="result" id="list_result">
+                <div class="h2">Danh sách trúng 10 Học bổng đến trường, trị giá 5tr/ Học bổng</div>
+                <!--Danh sach KH -->
+                <table class="table table-striped">
+                <thead class="danhsach_kh">
+                    
+                </thead>
+                <tbody class="danhsach_kh">
+                    <tr>
+                        <th>#</th>
+                        <th>Mã khách hàng</th>
+                        <th>Họ và tên</th>
+                        <th>Điện thoại</th>
+                        <th>Chi nhánh</th>
+                        <th>Trúng thưởng</th>
+                    </tr>
+                     <tr repeat.for = "item of DSKhachHangTrung2">
+                      <td><span class="kh_index">${$index+1}</span></td>
+                        <td><span class="MaKh"> ${item.MaKh }</span></td>
+                        <td><span class="tenkh">${item.TenKH} </span></td>
+                        <td><span class="sdt"> ${item.Phone}</span></td>
+                        <td><span class="chi_nhanh"> ${item.MaCn} </span></td>
+                        <td><span class="trung_thuong">Học bổng trị giá 5tr </span></td>
+                   </tr>
+                </tbody>
+
+                </table>
+            </div>
+        </div>
+          <!--END GAM2-->
+  <!--GAM1-->
+        <div class="game-wrap" id="quayso3">
+            <div class="p" style="padding-top: 10px;"></div>
+            <div class="result_title">
+                <div class="p">Mã khách hàng</div>
+            </div>
+            <div class="ms_btn">
+                <ul>
+                    <li><input class="text_input" type="text" value="000000000000000" name="masotrungthuong" id="quayso1" readonly="1" value.bind="quaySoResult3"></li>
+                    <li>
+                        <input type="button" id="btn_quay_3" click.delegate="play3()">
+                        <!--<input type="hidden" name="AB_chance" value="3" id="el_AB_chance">-->
+                    </li>
+                </ul>
+                <div class="correct-info" id="quay_error"></div>
+            </div>
+
+            <div class="result" id="list_result">
+                <div class="h2">Danh sách trúng 20 Loa JBL Cao cấp,  trị giá 1tr490</div>
+                <!--Danh sach KH -->
+                <table class="table table-striped">
+                <thead class="danhsach_kh">
+                    
+                </thead>
+                <tbody class="danhsach_kh">
+                    <tr>
+                        <th>#</th>
+                        <th>Mã khách hàng</th>
+                        <th>Họ và tên</th>
+                        <th>Điện thoại</th>
+                        <th>Chi nhánh</th>
+                        <th>Trúng thưởng</th>
+                    </tr>
+                     <tr repeat.for = "item of DSKhachHangTrung3">
+                      <td><span class="kh_index">${$index+1}</span></td>
+                        <td><span class="MaKh"> ${item.MaKh }</span></td>
+                        <td><span class="tenkh">${item.TenKH} </span></td>
+                        <td><span class="sdt"> ${item.Phone}</span></td>
+                        <td><span class="chi_nhanh"> ${item.MaCn} </span></td>
+                        <td><span class="trung_thuong">Loa JBL Cao cấp</span></td>
+                   </tr>
+                                    </tbody>
+                </table>
+
+            </div>
+        </div>
+         <!--END GAM1-->
+    </div>
+    
+    
+</div>
+
+<div class="popup_chinhanh" style="display: none;">
+    <form action="index.php" method="post" name="frm_branch">
+    <div class="popup_row">
+        <label>Chọn chi nhánh:</label>
+        <select name="branch" style="width: 300px;">
+                    </select>
+    </div>
+    <div class="popup_row">
+        <input type="hidden" name="dispatch" value="quay_so.set_branch">
+    </div>
+    </form>
+</div>
+
+</div>
+
+
+</script>
+  </section>
+  <style>
+      .AllPage{
+	 width: 100%;
+	 height: auto;
+	 margin: auto;
+	 line-height: initial;
+	 color: #58595b;
+}
+.header_bg{
+	margin: auto;
+	background: url("dist/Resources/Images/BannerquaysoLaptop-011.jpg") no-repeat;
+	width: 980px;
+	height: 278px;
+}
+.body{
+	 margin: auto;
+	background: #e7e8e9;
+	width: 980px;
+	height: auto;
+	/*margin-top: -12px;*/
+	text-align: center;
+	position: relative;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+.game-wrap ul li{
+	list-style: none;
+
+}
+.game-wrap .p {
+	font-size: 20px;
+}
+.game-wrap .h2{
+	font-size: 25px;
+	color: #2f3193;
+	text-transform: uppercase;
+}
+.game-wrap input {
+	text-align: center;
+	width: 300px;
+	height: 50px;
+	font-family: monospace !important;
+}
+.text_input{
+	font-size: 30px;
+	color: #2f3192;
+	font-weight: bold;
+	font-family: tahoma;
+}
+.chinhanh{
+	position: absolute;
+	top: 60px;
+  	right: 10px;
+  	  width: 260px;
+  	height: 50px;
+}
+.cn_nguyenkiem {
+	background: url("dist/Resources/Images/nguyenkiem_img.png") no-repeat;
+}
+.cn_bathanghai {
+	background: url("dist/Resources/Images/32_img.png") no-repeat;
+}
+.ms_btn{
+	margin-left: -230px;
+}
+#btn_quay,
+#btn_quay_AB
+{
+	background: url("dist/Resources/Images/btn-quay-so1.jpg") no-repeat;
+	width: 178px;
+	height: 50px;
+	position: absolute;
+	margin-top:-53px;
+	margin-left: 165px;
+	border: none;
+}
+#btn_quay_3
+{
+	background: url("dist/Resources/Images/btn-quay-so1.jpg") no-repeat;
+	width: 178px;
+	height: 50px;
+	position: absolute;
+	margin-top:-53px;
+	margin-left: 165px;
+	border: none;
+}
+#btn_quay_3.disabled
+{
+    cursor: default;
+	background: url("dist/Resources/Images/btn-quay-so-disable1.jpg") no-repeat;
+}
+#btn_quay_AB.disabled
+{
+    cursor: default;
+	background: url("dist/Resources/Images/btn-quay-so-disable1.jpg") no-repeat;
+}
+#btn_quay.disabled {
+	cursor: default;
+	background: url("dist/Resources/Images/btn-quay-so-disable1.jpg") no-repeat;
+}
+#btn_quay:hover{
+	opacity: 0.8;
+}
+.danhsach_kh{
+	margin: 10px auto 0;
+	width: 950px;
+	height: auto;
+	background: #fff;
+	border: 1px solid #bdbebf;
+	overflow: hidden;
+	font-size: 14px;
+}
+/* .block_kh{
+	width: 700px;
+	height: 426px;
+	border-bottom: 1px solid #bdbebf;
+} */
+/*
+.divkh1{
+	float: left;
+	width: 470px;
+	margin-left: 265px
+}
+*/
+.divkh1 ul li:first-child {
+	color: red;
+	font-size: 16px;
+}
+.divkh1 ul li {
+
+}
+.divkh1 ul li > label {
+	width: 105px;
+	display: inline-block;
+}
+.divkh1 p{
+	font-size: 16px;
+	color: #ed1c24;
+}
+.divkh1 ul{
+  text-align: left;
+  margin-left: 20px;
+  line-height: 2.1em;
+    padding: 20px 0;
+}
+.divkh1 .sohd {
+  font-weight: bold;
+  font-size: 18px;
+}
+.tenkh{
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.div_kh_border{
+	border-bottom: 1px solid #bdbebf;
+}
+.game-wrap .result {
+	margin-top: 20px;
+}
+.result_title {
+	margin: 20px 0;
+}
+.popup_row label {
+	margin-right: 20px;
+}
+.correct-info {
+	margin-top: 5px;
+  	color: red;
+}
+#btn_chon_chinhanh {
+	margin-top: 52px;
+    display: inline-block;
+}
+.option-fields {
+	text-align: center;
+	margin: 0 auto;
+}
+.option-fields > div {
+	width: 500px;
+    padding: 30px 0 10px;
+    margin: 0 auto;
+}
+tbody.danhsach_kh td {
+    text-align: left;
+}
+      </style>
+</template>

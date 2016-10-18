@@ -1,0 +1,144 @@
+<template>
+ 
+    <section>
+        <h2>Quản lý chương trình</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Lọc</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label for="filterbsnessID">Lọc thông tin đối tác</label>
+                            <br />
+                            <select ref="filterbsnessID" id="filterbsnessID" class="form-control">
+                                <option value="">Tất cả</option>
+                                <option repeat.for="item of listBusiness" value.two-way="item.BusinessId"> ${item.Name}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" click.delegate="addCampaign()">
+                <span class="glyphicon glyphicon-plus"></span> Tạo mới chương trình
+            </button>
+        </div>
+        <div class="table-responsive">
+        <table id="tableBanner" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Stt</th>
+                    <th>Mã chương trình</th>
+                    <th>Tên</th>
+                    <th>Mô tả</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>vị trí</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody ref="mydata" items.bind="campaigns | filterBusiness:filterbsnessID.value">
+                <tr repeat.for="item of mydata.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+                    <td>${(current-1)*10+$index+1}</td>
+                    <td>
+                        ${item.Business_id}
+                    </td>
+                    <td>${item.Name}</td>
+                    <td>
+
+                            ${item.Description}
+
+
+                    </td>
+                    <td>
+                        <span>${item.Date_start | dateFormat:'YYYY-MM-DD HH:mm:ss'}
+
+
+                    </td>
+                    <td>
+                        ${item.Date_end | dateFormat:'YYYY-MM-DD HH:mm:ss'}
+
+                    </td>
+                    <td>${item.Position}</td>
+                    <td>
+                        ${item.Status}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.editToCampaign(item)">
+                            <span class="glyphicon glyphicon-edit"></span> Sửa
+                        </button>
+                        <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.deleteCampaign(item)">
+                            <span class="glyphicon glyphicon-edit"></span> Xóa
+                        </button>
+
+
+                    </td>
+                </tr>
+                <tr if.bind="mydata.items.length > 0">
+                    <td colspan="11">
+                        <pagination page-size.bind="pagesize" total.bind="mydata.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+                    </td>
+                </tr>
+            </tbody>
+
+             <tbody if.bind="mydata.items.length <= 0">
+                <tr>
+                    <td colspan="13">
+                        Không có sản phẩm.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
+    <style type="text/css">
+    .filter-margin-left {
+        margin-left: 30px;
+    }
+
+    #tableBanner img {
+        cursor: -moz-zoom-in;
+        cursor: -webkit-zoom-in;
+        cursor: zoom-in;
+    }
+
+    #tableBanner button {
+        margin-top: 4px;
+    }
+
+    .modal {
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    .modal:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -4px;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    span.select2-container {
+        width: 70% !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 34px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #ccc !important;
+    }
+    </style>
+</template>

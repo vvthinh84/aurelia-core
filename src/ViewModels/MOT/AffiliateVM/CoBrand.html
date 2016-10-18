@@ -1,0 +1,159 @@
+<template>
+  <section>
+
+    <h3 style="margin-bottom: 30px;"><b>CẤU HÌNH CO-BRAND</b></h3>
+
+    <div class="panel panel-default" style="margin-top:20px">
+                <div class="panel-heading">
+                    <h4 class="modal-title">Thêm mới Số điện thoại</h4>
+                </div>
+                <div class="panel-body">
+                   <div class="row">
+                        <div class="col-xs-6 col-sm-3 form-group required">
+                            <label class="control-label">Số Điện Thoại:</label>
+                            <br>
+                            <input class="form-control" type="text" value.bind="CoBrandItem.Phone" placeholder="Số Điện Thoại"/>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 form-group">
+                            <label class="control-label">Họ tên: </label>
+                            <br>
+                            <input class="form-control" type="text" value.bind="CoBrandItem.FullName" placeholder="Họ Tên"/>
+                        </div>
+                        
+                    </div>
+
+                     <div class="row">
+                         <div class="col-xs-6 col-sm-3 form-group required">
+                            <label class="control-label">Type:</label>
+                            <br>
+                            <input class="form-control" type="text" value.bind="CoBrandItem.Type" placeholder="Type"/>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 form-group required">
+                            <label class="control-label">Code: </label>
+                            <br>
+                            <input class="form-control" type="text" value.bind="CoBrandItem.Code" placeholder="Code"/>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-xs-6 col-sm-6 form-group">
+                            <button type="button" style="width: 20% !important; margin-top: 5px;" class="btn btn-danger" click.delegate="InsertCoBrandItem()">Thêm</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+      </div>
+
+        <form enctype="multipart/form-data" method="post" action="http://localhost:7878/uploadExcel-api/UploadExcelCoBrand" id="ajaxUploadForm" novalidate="novalidate">
+        <!--<form enctype="multipart/form-data" method="post" action="http://localhost:65381/api/uploadExcel/UploadExcelCoBrand" id="ajaxUploadForm" novalidate="novalidate">-->
+        <div class="panel panel-default" style="margin-top:30px">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 required">
+                        <h4 class="modal-title">Import Số điện thoại</h4>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 required"  >
+                        <a href="http://admincp.vienthonga.net/Template/FileMau_ImportCoBrand.xls" style="float: right;"><span class="glyphicon glyphicon-file"></span> Tải file import mẫu tại đây</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-6 col-sm-3 required">
+                            <label class="control-label">Chọn file Excel (.xls, .xlsx): </label>
+                            <br>
+                            <input class="btn btn-default" style="width: 100%;" name="uploadFile" type="file" id="uploadFile" accept=".xls,.xlsx" value.bind="file" />
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label"></label>
+                            <br>
+                            <div class="input-form">
+                                <input type="submit" style="width: 150px; margin-top: 5px;" class="btn btn-primary btn-md" id="ajaxUploadButton" value="Upload" title="Upload file">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3" if.bind="ListLastFailed.length > 0">
+                            <label class="control-label"><font color="red">Danh sách số điện thoại import thất bại, vui lòng kiểm tra lại dữ liệu trong file Excel:</font></label>
+                            <br>
+                             ${strLastFailed}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="panel panel-default" style="margin-top: 30px;">
+      <div class="panel-heading">
+        <h3 class="panel-title">Tìm kiếm theo Code hoặc Số điện thoại </h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline form-filter" role="form">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control search-input" style="float: left; width: 65% !important" ref="refKeywordSearch" placeholder="Nhập Code hoặc Số điện thoại để tìm kiếm">
+              <button type="submit" class="btn btn-success" style="float: right; width: 30% !important" click.delegate="SearchByKeyword()">
+                  <span class="glyphicon glyphicon-search"></span> Tìm kiếm
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-responsive">
+      <table id="tableCoBrands" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Số Điện Thoại</th>
+            <th>Họ Tên</th>
+            <th>Loại</th>
+            <th>Code</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody ref="ResultData" items.bind="ListResults" > 
+          <tr repeat.for="result of ResultData.items">
+            <td>${result.Phone}</td>
+            <td>${result.FullName}</td>
+            <td>${result.Type}</td>
+            <td>${result.Code}</td>
+            <td>${result.Status | statusName}</td>
+          </tr>
+          <tr if.bind="!ListResults || ResultData.items.length <= 0">
+            <td colspan="7">
+              Không tìm thấy kết quả nào.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    </div>
+
+  </section>
+  <style>
+
+span.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.form-inline .form-control {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+}
+
+th {
+    text-align: center;
+    vertical-align: center;
+}
+    </style>
+</template>

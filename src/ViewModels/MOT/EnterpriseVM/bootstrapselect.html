@@ -1,0 +1,11 @@
+<template>
+  <select class="selectpicker"
+          data-actions-box="true"
+          data-dropup-auto="false"
+          data-style="btn-info"
+          multiple="multiple"
+          title="Chọn đối tác">
+    <option repeat.for="option of options"
+            value="${option.Business_id?option.Business_id:option.Name}">${option.Name}</option>
+  </select>
+</template>

@@ -1,0 +1,85 @@
+<template>
+  
+    <section>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" click.delegate="backToCampaign()">
+                <span class="glyphicon glyphicon-arrow-left"></span> Quay về Quản lý chương trình
+            </button>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="modal-title">Tạo mới chương trình</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 form-group required">
+                        <label class="control-label">Tên</label>
+                        <input class="form-control" type="text" value.bind="Name" />
+                    </div>
+                    <div class="col-md-4 form-group required">
+                        <label class="control-label">Mô tả</label>
+                        <input class="form-control" type="text" value.bind="Description" />
+                    </div>
+                    <div class="col-md-4 form-group required">
+                        <label class="control-label">Tên chương trình</label>
+                        <select name="" value.bind="Business_id" class="form-control" style="width: 100%;">
+                            <option repeat.for="item of listBusiness" value.bind="item.BusinessId">${item.Name}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group required" style="margin-top:30px">
+                        <label class="control-label">Vị trí trong list chương trình</label>
+                        <select value.bind="Position" class="form-control" style="width: 100%; height: 35px;">
+                            <option value="0">Mặc định</option>
+                            <option value="1">Vị trí 1</option>
+                            <option value="2">Vị trí 2</option>
+                            <option value="3">Vị trí 3</option>
+                            <option value="4">Vị trí 4</option>
+                            <option value="5">Vị trí 5</option>
+                            <option value="6">Vị trí 6</option>
+                            <option value="7">Vị trí 7</option>
+                            <option value="8">Vị trí 8</option>
+                            <option value="9">Vị trí 9</option>
+                            <option value="10">Vị trí 10</option>
+                            <option value="11">Vị trí 11</option>
+                            <option value="12">Vị trí 12</option>
+                            <option value="13">Vị trí 13</option>
+                            <option value="14">Vị trí 14</option>
+                            <option value="15">Vị trí 15</option>
+                            <option value="16">Vị trí 16</option>
+                            <option value="17">Vị trí 17</option>
+                            <option value="18">Vị trí 18</option>
+                            <option value="19">Vị trí 19</option>
+                            <option value="20">Vị trí 20</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group required" style="margin-top:30px">
+                        <label class="control-label">Ngày Bắt Đầu</label>
+                        <br />
+                        <div class="input-group date" style="width: 100%;">
+                            <input type="text" id="dtBannerStartDate" class="form-control" value.two-way="StartDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-4 form-group required" style="margin-top:30px">
+                        <label class="control-label">Ngày Kết Thúc</label>
+                        <br />
+                        <div class="input-group date" style="width:100%;">
+                            <input type="text" id="dtBannerEndDate" class="form-control" value.two-way="EndDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;" class="col-md-4">
+                        <button type="button" class="btn btn-primary" click.delegate="Submitcampaign()">Thêm chương trình</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+    
+    
+    .form-group.required .control-label:after {
+        content: " *";
+        color: red;
+    }
+    </style>
+</template>

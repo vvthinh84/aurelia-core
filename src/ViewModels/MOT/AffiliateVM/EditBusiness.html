@@ -1,0 +1,84 @@
+
+<template>
+
+    <section>
+        <div class="form-group" style="margin-top:20px;">
+            <button type="button" class="btn btn-primary" click.delegate="backToCampaignMng()" style="margin-top:20px;">
+                <span class="glyphicon glyphicon-arrow-left"></span> Quay về Quản lý chương trình
+            </button>
+        </div >
+        <div class="panel panel-default" style="margin-top:20px;">
+            <div class="panel-heading">
+                <h4 class="modal-title">Chỉnh sửa chương trình</h4>
+            </div>
+            <div class="panel-body" style="margin-top:50px">
+                <div class="row">
+
+                    <div class="form-group col-md-3 required">
+                        <label class="control-label">Tên</label>
+                        <input value.bind="detailCampaign.Name" class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-3 required">
+                        <label class="control-label">Mô tả</label>
+                        <textarea value.bind="detailCampaign.Description" style="width:300px" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group col-md-3 required">
+                        <label class="control-label">Vị trí trong danh sách chương trình</label>
+                        <select value.bind="BannerToEdit.ImagePosition" class="form-control" style="width: 90%; height: 35px;">
+                            <option value="0">Mặc định</option>
+                            <option value="1">Vị trí 1</option>
+                            <option value="2">Vị trí 2</option>
+                            <option value="3">Vị trí 3</option>
+                            <option value="4">Vị trí 4</option>
+                            <option value="5">Vị trí 5</option>
+                            <option value="6">Vị trí 6</option>
+                            <option value="7">Vị trí 7</option>
+                            <option value="8">Vị trí 8</option>
+                            <option value="9">Vị trí 9</option>
+                            <option value="10">Vị trí 10</option>
+                            <option value="11">Vị trí 11</option>
+                            <option value="12">Vị trí 12</option>
+                            <option value="13">Vị trí 13</option>
+                            <option value="14">Vị trí 14</option>
+                            <option value="15">Vị trí 15</option>
+                            <option value="16">Vị trí 16</option>
+                            <option value="17">Vị trí 17</option>
+                            <option value="18">Vị trí 18</option>
+                            <option value="19">Vị trí 19</option>
+                            <option value="20">Vị trí 20</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-3 required">
+                        <label class="control-label">Ngày Bắt Đầu</label>
+                        <div class="input-group date">
+                            <input type="text" id="dtBannerStartDate" class="form-control" value.two-way="detailCampaign.Date_start | dateFormat:'M/D/YYYY hh:mm:ss a'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3  form-group required">
+                        <label class="control-label">Ngày Kết Thúc</label>
+                        <div class="input-group date">
+                            <input type="text" id="dtBannerEndDate" class="form-control" value.two-way="detailCampaign.Date_end | dateFormat:'M/D/YYYY hh:mm:ss a' "><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align: center;" class="col-md-4 col-sm-offset-3">
+                    <button type="button" class="btn btn-primary" click.delegate="editCampaign()">Cập nhật chương trình</button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <style>
+      .form-group .required .control-label:after {
+          content: " *";
+          color: red;
+      }
+    </style>
+</template>

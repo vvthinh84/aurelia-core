@@ -1,0 +1,157 @@
+<template>
+  <section>
+    <h3 style="margin-bottom: 30px;">
+      <b>KẾT QUẢ QUAY SỐ HÀNG THÁNG</b>
+    </h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline form-filter"
+              role="form">
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="">Chọn Chương trình</label>
+              <br />
+              <select class="form-control"
+                      id="filterByCampaign"
+                      ref="filterCampaign">
+                <option value="0">Tất cả Chương trình</option>
+                <option repeat.for="item of ListCampaigns"
+                        value.bind="item.Id">${item.Name}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="">Chọn Chi nhánh</label>
+              <br />
+              <select class="form-control"
+                      id="filterByBranch"
+                      value.two-way="filterBranch">
+                <option value="All">- Tất cả Chi nhánh -</option>
+                <option repeat.for="item of ListBranchs"
+                        value.bind="item.BranchsCodePos">${item.BranchsCodePos} - ${item.BranchsAdd}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <div class="form-group col-md-6">
+                <label for=""></label>
+                <br />
+                <button class="btn btn-success"
+                        click.delegate="SearchKetQuaQuaySo()"
+                        style="margin-top: 5px !important; width: 150px;"
+                        type="submit">
+                <span class="glyphicon glyphicon-search"
+                      style="margin-right: 10px;"></span>Xem kết quả</button>
+              </div>
+              <div class="form-group col-md-6">
+                <div class="splash"
+                     if.bind="!pendding"
+                     style=" margin-top: -40%;">
+                  <i class="fa fa-spinner fa-pulse"
+                     style=" margin-top: 39%; margin-left: 50%;"></i>
+                </div>
+              </div>
+            </div>
+            
+            <!--<div class="form-group col-md-2">
+              <div class="form-group col-md-6">
+                <label for="">Chọn Tháng</label>
+                <br />
+                <select class="form-control"
+                        name="filterMonth"
+                        ref="filterMonth"
+                        value.bind="_defaultMonth">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">Chọn Năm</label>
+                <br />
+                <select class="form-control"
+                        name="filterYear"
+                        ref="filterYear"
+                        value.bind="_defaultYear">
+                  <option value="2016">2015</option>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                </select>
+              </div>-->
+            
+            
+            
+            
+            
+            
+            
+            </div>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered"
+             id="tableKQQSHT">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã Quay số</th>
+            <th>Chi nhánh</th>
+            <th>Giải thưởng</th>
+            <th>Ngày Quay</th>
+            <th>Chương trình</th>
+          </tr>
+        </thead>
+        <tbody items.bind="ListKetQuaQuaySoHangThang"
+               ref="KqqshtData">
+          <tr repeat.for="kq of KqqshtData.items">
+            <th scope="row">${$index+1}</th>
+            <td>${kq.MaQuaySo}</td>
+            <td>${kq.TenChiNhanh}</td>
+            <td>${kq.TenQuaTang}</td>
+            <td>${kq.NgayQuay | dateFormat:'DD/MM/YYYY hh:mm:ss A'}</td>
+            <td>${kq.CampaignName}</td>
+          </tr>
+          <tr if.bind="KqqshtData.items.length &lt;= 0">
+            <td colspan="6">Không tìm thấy kết quả thỏa điều kiện lọc.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <style>
+
+span.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.form-inline .form-control {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+}
+
+th {
+    text-align: center;
+    vertical-align: center;
+}
+    </style>
+</template>

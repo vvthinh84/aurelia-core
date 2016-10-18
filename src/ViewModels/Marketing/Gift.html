@@ -1,0 +1,209 @@
+<template>
+  <h3 style="margin-bottom: 30px; margin-left: 19px;"><b>CẤU HÌNH QUÀ TẶNG</b></h3>
+  <section if.bind="!isNoAccess">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline form-filter" role="form">
+
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for=""> Chọn Chương trình </label>
+              <br />
+              <select id="filterByCampaign" ref="filterCampaign" class="form-control">
+                <option value="">- Tất cả Chương trình -</option>
+                <option repeat.for="item of ListCampaigns" value.bind="item.Id">${item.Name}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for=""> Chọn Tình trạng </label>
+              <br />
+              <select name="filterStatus" ref="filterStatus" class="form-control">
+                <option value="">- Tất cả -</option>
+                <option value="A">Active</option>
+                <option value="D">Deactive</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for=""> Tên quà tặng </label>
+              <br />
+              <input type="text" class="form-control" ref="filterName" placeholder="Nhập Tên quà tặng">
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for=""> Mã quà tặng </label>
+              <br />
+              <input type="text" class="form-control" ref="filterCode" placeholder="Nhập Mã quà tặng">
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" click.delegate="AddGift()" data-toggle="modal" data-target="#addEditGift" disabled.bind="isViewOnly">
+        <span class="glyphicon glyphicon-plus"></span> Tạo mới Quà tặng
+      </button>
+    </div>
+    <div class="table-responsive">
+      <table id="tableGifts" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên Campaign</th>
+            <th>Tên</th>
+            <th>Mã</th>
+            <th>Giá</th>
+            <th>Số lượng tổng</th>
+            <th>Số lượng đã SD</th>
+            <th>Loại</th>
+            <!-- <th>Ratio</th> -->
+            <th>Tình trạng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody ref="GiftData" items.bind="ListGifts | filterByStatus:filterStatus.value | filterByName:filterName.value | filterByCode: filterCode.value | filterByCampaign: filterCampaign.value">
+          <tr repeat.for="gift of GiftData.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+            <td>${gift.Id}</td>
+            <td>${gift.CampaignName}</td>
+            <td>${gift.Name}</td>
+            <td>${gift.Code}</td>
+            <td>${gift.Price | vietNamDong}</td>
+            <td>${gift.TotalQuantity | decimal}</td>
+            <td>${gift.UsedQuantity | decimal}</td>
+            <td>${gift.Type}</td>
+            <!-- <td>${gift.Ratio}</td> -->
+            <td>${gift.Status | status}</td>
+            <td>
+              <!--${isViewOnly}-->
+              <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.EditGift(gift)" data-toggle="modal" data-target="#addEditGift" disabled.bind="isViewOnly">
+                <span class="glyphicon glyphicon-edit"></span> Sửa
+              </button>
+              <button if.bind="gift.Status==='D'" type="button" class="btn btn-success btn-xs" click.delegate="$parent.ChangeGiftStatus(gift)" disabled.bind="isViewOnly">
+                <span class="glyphicon glyphicon-ok"></span> Active
+              </button>
+              <button if.bind="gift.Status==='A'" type="button" class="btn btn-danger btn-xs" click.delegate="$parent.ChangeGiftStatus(gift)" disabled.bind="isViewOnly">
+                <span class="glyphicon glyphicon-remove"></span> Deactive
+              </button>
+            </td>
+          </tr>
+          <tr if.bind="GiftData.items.length > 0">
+            <td colspan="10">
+              <pagination page-size.bind="pagesize" total.bind="GiftData.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+            </td>
+          </tr>
+          <tr if.bind="!ListGifts || GiftData.items.length <= 0">
+            <td colspan="10">
+              Không tìm thấy quà tặng thỏa điều kiện lọc.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- EDIT GIFT FORM -->
+    <div id="addEditGift" ref="addEditGift" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 if.bind="isEdit" class="modal-title">Cập nhật Quà tặng</h4>
+            <h4 if.bind="!isEdit" class="modal-title">Thêm mới Quà tặng</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label" for="giftName">Tên quà tặng</label>
+                  <input class="form-control" type="text" id="giftName" value.bind="currentGift.Name" placeholder="Nhập Tên quà tặng" required="required"/>
+                </div>
+
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Mã quà tặng</label>
+                  <input class="form-control" type="text" value.bind="currentGift.Code" placeholder="Nhập Mã quà tặng" required="required" />
+                </div>
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Chọn Chương trình</label>
+                  <select value.bind="currentGift.CampaignId" class="form-control" required="required">
+                    <option value="">Tất cả Chương trình </option>
+                    <option repeat.for="item of ListCampaigns" model.bind="item.Id" value.bind="item.Id">${item.Name}</option>
+                  </select>
+                </div>
+                <div class="col-xs-6 form-group">
+                  <label class="control-label">URL hình ảnh</label>
+                  <input class="form-control" type="text" value.bind="currentGift.ImageUrl" placeholder="Nhập URL hình ảnh" />
+                </div>
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Giá</label>
+                  <input class="form-control" type="text" value.bind="currentGift.Price" placeholder="Nhập Giá" required="required" />
+                </div>
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Số lượng tổng</label>
+                  <input class="form-control" type="text" value.bind="currentGift.TotalQuantity" placeholder="Nhập Số lượng tổng" required="required" />
+                </div>
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Số lượng đã SD</label>
+                  <input class="form-control" type="text" value.bind="currentGift.UsedQuantity" disabled.bind="isEdit" placeholder="Nhập Số lượng đã SD" required="required" />
+                </div>
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Loại quà tặng</label>
+                  <input class="form-control" type="text" value.bind="currentGift.Type" placeholder="Nhập Loại quà tặng (CARD, GIFT, NOGIFT)" />
+                </div>
+                <div class="col-xs-6 form-group">
+                  <label class="control-label">Tỉ lệ trúng</label>
+                  <input class="form-control" type="text" value.bind="currentGift.Ratio" placeholder="Nhập Tỉ lệ trúng" />
+                </div>
+
+                <div class="col-xs-6 form-group required">
+                  <label class="control-label">Tình trạng</label>
+                  <select value.bind="currentGift.Status" class="form-control" required="required">
+                    <option value="A">Active</option>
+                    <option value="D">Deactive</option>
+                  </select>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <span style="float: left; color: red">(*) là các trường bắt buộc nhập</span>
+            <button if.bind="isEdit" type="button" class="btn btn-danger" click.delegate="SubmitGift()">Cập nhật</button>
+            <button if.bind="!isEdit" type="button" class="btn btn-danger" click.delegate="SubmitGift()">Thêm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+  <section if.bind="isNoAccess">
+    <div class="form-group">
+      <span>Bạn không có quyền truy cập trang này.</span>
+    </div>
+  </section>
+   <style>
+
+span.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.form-inline .form-control {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+}
+
+th {
+    text-align: center;
+    vertical-align: center;
+}
+    </style>
+</template>

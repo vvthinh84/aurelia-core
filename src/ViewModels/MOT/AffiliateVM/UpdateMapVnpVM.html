@@ -1,0 +1,142 @@
+<template>
+  <section>
+
+    <h3><b>MAPPING KHO VTA - VIỄN THÔNG A</b></h3>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="panel panel-default" style="margin-top: 0px;">
+          <div class="panel-heading">
+            <h4>CHỌN ĐỐI TÁC</h4>
+          </div>
+          <div class="panel-body">
+
+               <select name="" id="select2" required value.bind="selectedCompanyCode" class="form-control">
+                <option value="">--Chọn đối tác--</option>
+                <option value.bind="com.Business_id" repeat.for="com of Companies"> ${com.Name}</option>
+       </select>
+            <br />
+            <br />
+            <br />
+
+            <div>
+              <span><b>Danh sách đối tác đã chọn</b></span>
+              <hr style="margin: 10px !important">
+              <div  ref="rMapVnp" items.bind="MapVnp | objToFilter: st.ThanhPho : st.DiaChi : st.MaCs">
+                <div class="table-responsive">
+              <table class="col-xs-12 table">
+              <thead>
+                <th style="width: 5%">#</th>
+                <th style="width: 15%">Mã chi nhánh</th>
+                <th style="width: 20%">Địa chỉ</th>
+                <th style="width: 10%">Quận</th>
+                <th style="width: 10%">Thành phố</th>
+                <th>Khu vực</th>
+                <th>
+                  <input type="checkbox" checked.bind="CheckAll.MapVnp"></th>
+              </thead>
+              <tbody>
+                <tr repeat.for="store of rMapVnp.items">
+                  <td>${$index+1}</td>
+                  <td>${store.MaCs}</td>
+                  <td>${store.DiaChi}</td>
+                  <td>${store.Quan}</td>
+                  <td>${store.ThanhPho}</td>
+                  <td>${store.KhuVuc}</td>
+                  <td>
+                    <input type="checkbox" checked.bind="store.checked">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2" style="vertical-align: center !important; height: 100% !important;margin-top:-185px !important;">
+        <div class="move-buttons">
+        <button type="button" class="btn btn-default hungsclass" click.delegate="removeStore()"></button>
+            <button type="button" class="btn btn-default hungsclass" click.delegate="insertStore()"></button>
+                <button type="button" class="btn btn-default hungsclass" disabled.bind="!isEdit" click.delegate="updateMapVnp()">
+                  Cập nhật
+                </button>
+        </div>
+      </div>
+      <div class="col-md-5">
+
+         <div class="panel panel-default" style="margin-top: 0px;">
+          <div class="panel-heading">
+            <h4>CHỌN CỬA HÀNG VIỄN THÔNG A</h4>
+          </div>
+          <div class="panel-body">
+          <div class="form-group">
+                  <label for="">Chọn TP</label>
+                  <select value.bind="st.ThanhPho" class="form-control">
+                    <option value="">-- Chọn Thành phố --</option>
+                    <option model.bind="tp" repeat.for="tp of ListCity">${tp}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Địa chỉ</label>
+                  <input type="text" class="form-control" id="" value.bind="st.DiaChi">
+                </div>
+                <div class="form-group">
+                  <label for="">Mã CS</label>
+                  <input type="text" class="form-control" id="" placeholder="" value.bind="st.MaCs">
+                </div>
+              </form>
+
+<div  ref="storeVta" items.bind="ListStore | objToFilter: st.ThanhPho : st.DiaChi : st.MaCs">
+          <div style="overflow-x:auto">
+
+              <table class="col-xs-12 table">
+              <thead>
+                <th>
+                  <input type="checkbox" checked.bind="CheckAll.ListStore">
+                </th>
+                <th style="width: 5%">#</th>
+                <th style="width: 15%">Mã chi nhánh</th>
+                <th style="width: 20%">Địa chỉ</th>
+                <th style="width: 8%">Quận</th>
+                <th style="width: 10%">Thành phố</th>
+                <th>Khu vực</th>
+              </thead>
+              <tbody>
+                <tr repeat.for="item of storeVta.items">
+                  <td>
+                    <input type="checkbox" checked.bind="item.checked">
+                  </td>
+                  <td>${$index+1}</td>
+                  <td> ${item.MaCs}</td>
+                  <td>${item.DiaChi}</td>
+                  <td>${item.Quan}</td>
+                  <td>${item.ThanhPho}</td>
+                  <td>${item.KhuVuc}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            </div>
+          </div>
+         </div>
+
+    </div>
+  </section>
+
+  <style>
+
+    .hungsclass{
+      display:block;
+      width: 100%;
+      max-width: 100px;
+      margin: 15px auto;
+    }
+
+    .move-buttons {
+      margin-top: 200px;
+    }
+  </style>
+</template>

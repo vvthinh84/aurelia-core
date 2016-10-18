@@ -1,0 +1,44 @@
+<template>
+    <section>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" click.delegate="backToBusiness()">
+                <span class="glyphicon glyphicon-arrow-left"></span> Quay về Quản lý đối tác
+            </button>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="modal-title">Tạo mới đối tác</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 form-group required">
+                        <label class="control-label">Tài khoản</label>
+                        <input class="form-control" type="text" value.bind="User" placeholder="Tài khoảng" />
+                    </div>
+                    <div class="col-md-6 form-group required">
+                        <label class="control-label">Tên</label>
+                        <input class="form-control" type="text" value.bind="Name" placeholder="Tên" />
+                    </div>
+                    <div class="col-md-6 form-group required">
+                        <label class="control-label">Mô tả</label>
+                        <textarea class="form-control" type="text" value.bind="Description" placeholder="Mô tả"></textarea>
+                    </div>
+                    <div class="col-md-6 form-group required">
+                        <label class="control-label">Mật khẩu</label>
+                        <input class="form-control" type="password" value.bind="Pass" />
+                    </div>
+                    
+                    <div style="text-align: center;" class="col-md-4">
+                        <button type="button" class="btn btn-primary" click.delegate="submitBusiness()">Thêm đối tác</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+    .form-group.required .control-label:after {
+        content: " *";
+        color: red;
+    }
+    </style>
+</template>

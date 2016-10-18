@@ -1,0 +1,232 @@
+<template>
+  <section>
+    <h3 style="margin-bottom: 30px;"><b>TÌM KIẾM USER</b></h3>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline" role="form">
+          <div class="row">
+
+            <div class="form-group col-md-2">
+              <label for=""> Chọn Đơn vị </label>
+              <br />
+              <select id="filterByCompany" value.two-way="filterCompany" class="form-control">
+                <option value="">Tất cả Đơn vị </option>
+                <option repeat.for="item of Companies" value.bind="item.Id"> ${item.CompanyName}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+            </style>
+              <label for="">Username</label>
+              <br />
+              <input type="text" class="form-control" ref="searchEmailOrUsername" placeholder="Nhập username">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="">Email</label>
+              <br />
+              <input type="text" class="form-control" ref="emailRf" placeholder="Nhập Email">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="">Số Điện Thoại</label>
+              <br />
+              <input type="text" ref="phoneRf" class='form-control' placeholder="Số điện thoại">
+            </div>
+            <div class="form-group col-md-2">
+              <label>Trạng thái</label>
+              <br />
+              <select name="statusRf" ref="statusRf" class="form-control" >
+                <option value="">- Tất cả -</option>
+                <option value="Active">Active</option>
+                <option value="NotActiveYet">Deactive</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" click.delegate="AddUser()" data-toggle="modal" data-target="#addEditUser"  data-backdrop="static" data-keyboard="false">
+        <span class="glyphicon glyphicon-plus"></span> Tạo mới User
+      </button>
+    </div>
+     <div class="table-responsive">
+      <table id="tableUserByCompany" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Tên Đầy Đủ</th>
+            <th>Email</th>
+            <th>Số Điện Thoại</th>
+            <th>Tuổi</th>
+            <th>Vai Trò</th>
+            <th>Đơn vị</th>
+            <th>Trạng Thái</th>
+            <th style="width: 350px;">Hành Động</th>
+          </tr>
+        </thead>
+        <tbody ref="mydata" items.bind="UserByCompany | filterByEmailOrUsername : searchEmailOrUsername.value : phoneRf.value : emailRf.value | filterByCompany : filterCompany | filterByStatus : statusRf.value ">
+          <tr repeat.for="user of mydata.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+            <th scope="row">${(current-1)*10+$index +1}</th>
+            <td>${user.UserName}</td>
+            <td>${user.FullName}</td>
+            <td>${user.Email}</td>
+            <td>${user.Phone}</td>
+            <td>${user.Age}</td>
+            <td>${GetStringOfUserRolesName(user.RoleIds)}</td>
+            <td>${GetDonViName(user.CompanyId)}</td>
+            <td>${user.Status}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.EditUser(user)" data-toggle="modal" data-target="#addEditUser">
+                <span class="glyphicon glyphicon-edit"></span> Sửa
+              </button>
+              <button type="button" class="btn btn-warning btn-xs" click.delegate="$parent.ResetPassword(user)">
+                <span class="glyphicon glyphicon-flash"></span> ResetPass
+              </button>
+              <button if.bind="user.Status==='NotActiveYet'" type="button" class="btn btn-danger btn-xs" click.delegate="$parent.ActiveUser(user)">
+                <span class="glyphicon glyphicon-edit"></span> Active
+              </button>
+              <button if.bind="user.Status==='Active'" type="button" class="btn btn-danger btn-xs" click.delegate="$parent.DeActiveUser(user)">
+                <span class="glyphicon glyphicon-user"></span> Deactive
+              </button>
+            </td>
+          </tr>
+          <tr if.bind="mydata.items.length > 0">
+            <td colspan="10">
+              <pagination page-size.bind="pagesize" total.bind="mydata.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+            </td>
+          </tr>
+          <tr if.bind="!UserByCompany || mydata.items.length <= 0">
+            <td colspan="10">
+              Không có user nào.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- EDIT USER FORM -->
+    <div id="addEditUser" ref="addEditUser" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 if.bind="isEdit" class="modal-title">Cập nhật thông tin User</h4>
+            <h4 if.bind="!isEdit" class="modal-title">Thêm mới User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-6 form-group required">
+                <label class="control-label">User Name</label>
+                <input if.bind="isEdit" class="form-control" type="text" readonly value.bind="selectedUserForEditing.UserName" placeholder="Nhập username" required="required" />
+                <input if.bind="!isEdit" class="form-control" type="text" value.bind="selectedUserForEditing.UserName" placeholder="Nhập username" />
+              </div>
+
+              <div class="col-xs-6 form-group">
+                <label>Mã Nhân Viên</label>
+                <input class="form-control" type="text" value.bind="selectedUserForEditing.EmployeeId" placeholder="Nhập mã nhân viên" />
+              </div>
+
+              <div class="col-xs-6 form-group required" if.bind="!isEdit">
+                <label class="control-label">Mật khẩu</label>
+                <input class="form-control" type="password" value.bind="selectedUserForEditing.Password" placeholder="Nhập mật khẩu" />
+              </div>
+              <div class="col-xs-6 form-group required">
+                <label class="control-label">Tên đầy đủ</label>
+                <input class="form-control" type="text" value.bind="selectedUserForEditing.FullName" placeholder="Nhập tên đầy đủ" />
+              </div>
+
+
+              <div class="col-xs-6 form-group required">
+                <label class="control-label">Ngày Sinh</label>
+                <br />
+                <!-- <input class="form-control" style="border: none !important;" ak-datepicker="k-value.two-way:selectedUserForEditing.Birthday" style="width: 100%;" /> -->
+                <div class="input-group date" >
+                  <input type="text" id="dtSelectedUserForEditingBirthday" class="form-control" value.two-way="selectedUserForEditing.Birthday"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+
+
+              <div class="col-xs-6 form-group">
+                <label>Số CMND</label>
+                <input class="form-control" type="text" value.bind="selectedUserForEditing.PersonalId" placeholder="Nhập số CMND" />
+              </div>
+
+              <div class="col-xs-6 form-group required">
+                <label class="control-label">Đơn Vị</label>
+                <br />
+                <select class="form-control donvi-select2" id="ddlAddEditUserCompanyId" value.two-way="selectedUserForEditing.CompanyId">
+                  <option repeat.for="item of Companies" model.bind="item" value.bind="item.Id"> ${item.CompanyName}</option>
+                </select>
+              </div>
+
+              <div class="col-xs-6 form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" value.bind="selectedUserForEditing.Email" placeholder="Nhập email" />
+              </div>
+
+              <div class="col-xs-6 form-group">
+                <label>Số Điện thoại</label>
+                <input class="form-control" type="text" value.bind="selectedUserForEditing.Phone" placeholder="Nhập số điện thoại" />
+              </div>
+
+              <div class="col-xs-6 form-group">
+                <label>Trạng thái</label>
+                <select name="" value.bind="selectedUserForEditing.Status" class="form-control">
+                  <option value="Active">Active</option>
+                  <option value="NotActiveYet">Deactive</option>
+                </select>
+              </div>
+
+              <!-- Roles -->
+              <div class="col-xs-6 form-group" if.bind="isEdit">
+                <label>Vai trò</label>
+                <select name="cars" multiple class="form-control" value.bind="selectedUserForEditing.SelectedRoleIds" value.two-way="selectedUserForEditing.SelectedRoleIds">
+                  <option repeat.for="item of ListRolesToBind" model.bind="item.RoleId" value.bind="item.RoleId"> ${item.Name}</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <span style="float: left; color: red">(*) là các trường bắt buộc nhập</span>
+            <button if.bind="isEdit" type="button" class="btn btn-danger" click.delegate="SubmitUser()">Cập nhật</button>
+            <button if.bind="!isEdit" type="button" class="btn btn-danger" click.delegate="SubmitUser()">Thêm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <style type="text/css">
+
+    .filter-margin-left {
+      margin-left: 30px;
+    }
+
+    .form-group.required .control-label:after {
+      content: " *";
+      color: red;
+    }
+
+    span.select2-container {
+      width: 100% !important;
+    }
+
+    .select2-container .select2-selection--single {
+      height: 34px !important;
+    }
+   .form-inline .form-control {
+        width: 100% !important;
+    }
+    .select2-container--default .select2-selection--single {
+      border: 1px solid #ccc !important;
+    }
+  </style>
+
+</template>

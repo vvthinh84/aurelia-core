@@ -1,0 +1,68 @@
+<template>
+  <style>
+    .caption h4 {
+        overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+  </style>
+  <h3 style="margin-bottom: 30px;"><b>THÊM MỚI ĐƠN HÀNG TIỀN MẶT</b></h3>
+  <section>
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="">Doanh nghiệp</label>
+        <select value.bind="BusinessId" class="form-control">
+            <option value="0" model.bind="0">-- Chọn doanh nghiệp --</option>
+          <option repeat.for="status of companybusiness" value.bind="status.BusinessCode">${status.Name}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="">Loại sản phẩm </label>
+        <select name="" id="idrootcategory" value.bind="RootCategoryId" disabled.bind="!BusinessId.length>0" class="form-control" disabled="true">
+          <option value="0" model.bind="0">Sản phẩm nổi bật</option>
+          <option repeat.for="item of RootCategories" model.bind="item.CategoryId" value.bind="item.CategoryId"> ${item.CategoryName}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="">Thương hiệu </label>
+        <select name="" id="idcategory" value.bind="CategoryId" disabled.bind="!BusinessId.length>0" class="form-control" disabled="true">
+          <option value="">-- Chọn thương hiệu --</option>
+          <option repeat.for="item of Categories | filterByRootCategoryId: RootCategoryId" model.bind="item.CategoryId" value.bind="item.CategoryId"> ${item.CategoryName}</option>
+        </select>
+      </div>
+      <div class="form-group" >
+        <label for="">Tên sản phẩm</label>
+        
+        <input type="text" class="form-control" id="idbyname" placeholder="Lọc theo tên sản phẩm" ref="searchByName" disabled="true" disabled.bind="!BusinessId.length>0">
+      </div>
+    </form>
+  </section>
+  <section>
+    <h5><b>Danh sách sản phẩm</b></h5>  <hr>
+    <div class="section">
+      <div class="row text-center" >
+        <div class="col-md-3 col-sm-6 hero-feature" repeat.for="product of Products | filterByName:searchByName.value | filterByCategoryId: CategoryId ">
+          <div class="thumbnail">
+            <img src="${product.ImageDetail | convertToImange }" height="68px" width="68px">
+            <div class="caption">
+              <h4>${product.ProductName}</h4>
+              <!-- <p>Trạng thái: ${product.StatusStock}</p> -->
+              <p>Trạng thái: Còn hàng</p>
+              <p if.bind="product.PriceHeadOffice != -1">Price: ${product.Price | vietNamDong }</p>
+              <p if.bind="product.PriceHeadOffice == -1">Price: <span style="color: red;">Giá liên hệ</span></p>
+              <p>
+                <!-- <a href="#OrderMenu/ProductToOrder?productId=${product.ProductId}" click.trigger="selectProduct(product)" class="btn btn-primary">Chọn</a> <a href="" class="btn btn-default">Xem thông tin</a> -->
+                <a  click.trigger="selectProduct(product)" class="btn btn-primary">Chọn</a>
+                <!-- <a href="" class="btn btn-default">Xem thông tin</a> -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <style>
+  .caption h4 {
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  }</style>
+  
+</template>

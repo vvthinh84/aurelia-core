@@ -1,0 +1,669 @@
+<template>
+  <style>
+  element.style {
+      color: #0a9273;
+    }
+    
+    .btn-label {
+      position: relative;
+      left: -82px;
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 3px 0 0 3px;
+    }
+    
+    .btn-labeled {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    
+    .btn {
+      margin-bottom: 10px;
+    }
+    
+    span.select2-container {
+      width: 100% !important;
+    }
+    
+    .select2-container .select2-selection--single {
+      height: 34px !important;
+    }
+    
+    .form-inline .form-control {
+      width: 100% !important;
+    }
+    
+    .select2-container--default .select2-selection--single {
+      border: 1px solid #ccc !important;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: inherit;
+      transition: all .5s;
+    }
+    
+    .btn-primary.btn-outline {
+      color: #428bca;
+    }
+    
+    .btn-success.btn-outline {
+      color: #5cb85c;
+    }
+    
+    .btn-info.btn-outline {
+      color: #5bc0de;
+    }
+    
+    .btn-warning.btn-outline {
+      color: #f0ad4e;
+    }
+    
+    .btn-danger.btn-outline {
+      color: #d9534f;
+    }
+    
+    .btn-primary.btn-outline:hover,
+    .btn-success.btn-outline:hover,
+    .btn-info.btn-outline:hover,
+    .btn-warning.btn-outline:hover,
+    .btn-danger.btn-outline:hover {
+      color: #fff;
+    }
+    
+    .badge-purple {
+      background-color: #9585bf!important
+    }
+    
+    hr {
+      margin-top: -14px;
+      margin-bottom: 12px;
+      border: 0;
+      border-top: 1px solid #eee;
+    }
+    /*	--------------------------------------------------
+	:: Table Filter
+	-------------------------------------------------- */
+    
+    .panel {
+      border: 1px solid #ddd;
+      background-color: #fcfcfc;
+    }
+    
+    .panel .btn-group {
+      margin: 15px 0 30px;
+    }
+    
+    .panel .btn-group .btn {
+      transition: background-color .3s ease;
+    }
+    
+    .table-filter {
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .table-filter tbody tr:hover {
+      cursor: pointer;
+      background-color: #eee;
+    }
+    
+    .table-filter tbody tr td {
+      padding: 10px;
+      vertical-align: middle;
+      border-top-color: #eee;
+    }
+    
+    .table-filter tbody tr.selected td {
+      background-color: #eee;
+    }
+    
+    .table-filter tr td:first-child {
+      width: 38px;
+    }
+    
+    .table-filter tr td:nth-child(2) {
+      width: 35px;
+    }
+    
+    .ckbox {
+      position: relative;
+    }
+    
+    .ckbox input[type="checkbox"] {
+      opacity: 0;
+    }
+    
+    .ckbox label {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    .ckbox label:before {
+      content: '';
+      top: 1px;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      display: block;
+      position: absolute;
+      border-radius: 2px;
+      border: 1px solid #bbb;
+      background-color: #fff;
+    }
+    
+    .ckbox input[type="checkbox"]:checked + label:before {
+      border-color: #2BBCDE;
+      background-color: #2BBCDE;
+    }
+    
+    .ckbox input[type="checkbox"]:checked + label:after {
+      top: 3px;
+      left: 3.5px;
+      content: '\e013';
+      color: #fff;
+      font-size: 11px;
+      font-family: 'Glyphicons Halflings';
+      position: absolute;
+    }
+    
+    .table-filter .star {
+      color: #ccc;
+      text-align: center;
+      display: block;
+    }
+    
+    .table-filter .star.star-checked {
+      color: #F0AD4E;
+    }
+    
+    .table-filter .star:hover {
+      color: #ccc;
+    }
+    
+    .table-filter .star.star-checked:hover {
+      color: #F0AD4E;
+    }
+    
+    .table-filter .media-photo {
+      width: 35px;
+    }
+    
+    .table-filter .media-body {
+      display: block;
+      /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+    }
+    
+    .table-filter .media-meta {
+      font-size: 11px;
+      color: #999;
+    }
+    
+    .table-filter .media .title {
+      color: #2BBCDE;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: normal;
+      margin: 0;
+    }
+    
+    .table-filter .media .title span {
+      font-size: .8em;
+      margin-right: 20px;
+    }
+    
+    .table-filter .media .title span.pagado {
+      color: #5cb85c;
+    }
+    
+    .table-filter .media .title span.pendiente {
+      color: #f0ad4e;
+    }
+    
+    .table-filter .media .title span.cancelado {
+      color: #d9534f;
+    }
+    
+    .table-filter .media .summary {
+      font-size: 14px;
+    }
+  }
+  </style>
+
+  <section>
+
+    <head>
+      <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+      <!--<h3 style="margin-bottom: 30px;"><b>QUẢN LÝ ĐƠN HÀNG</b></h3>-->
+    </head>
+
+
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">
+          <h3 style="margin-bottom: 30px;"><b>QUẢN LÝ ĐƠN HÀNG</b></h3>
+        </div>
+        <div class="col-xs-6 col-sm-3"></div>
+
+        <!-- Add the extra clearfix for only the required viewport -->
+        <div class="clearfix visible-xs-block"></div>
+
+        <div class="col-xs-6 col-sm-3"></div>
+
+        <div class="col-xs-6 col-sm-3">
+          <a class="btn btn-success btn-outline" click.delegate="printdonhang()" style="
+    margin-left: 46%;"> <span class="glyphicon glyphicon-print"></span> In danh sách đơn hàng đã chọn</a>
+        </div>
+
+
+      </div>
+    </div>
+    <hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body" style="margin-left: 0px; ">
+
+        <!--FORM-->
+        <div class="container-fluid">
+          <form>
+            <div class="row">
+              <!-- COL 1 -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+
+                <div class="form-group">
+
+                  <div class="col-xs-6">
+                    <label for="exampleInputEmail1">Từ ngày</label>
+                    <input class="form-control col-xs-12" id="txtFilterDateFrom" value.bind="StartDate">
+                  </div>
+
+                  <div class="col-xs-6">
+                    <label for="exampleInputEmail1">Đến ngày</label>
+                    <input class="form-control col-xs-12" id="txtFilterDateTo" value.bind="EndDate">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Thông tin tìm kiếm</label>
+                    <input class="form-control" ref="refPhone">
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Tình trạng</label>
+                    <select id="filterByTT" value.two-way="filterTT" class="form-control" style="width: 500px;">
+                      <option value="">--- Tất cả ---</option>
+                      <option repeat.for="aff of ListStatus" value.bind="aff.StatusCode">${aff.StatusName}</option>
+                  </select>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- END COL 1 -->
+              <!-- COL 2 -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <label for="column">Tổng (Đ):</label>
+                <br/>
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <input type="text" id="number1" class="form-control">
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="text" id="number1" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Loại đơn hàng</label>
+                    <!--<select class="form-control" name="OrTypeOrder" ref="OrTypeOrder">
+                            <option value="">--- Tất cả ---</option>
+                            <option repeat.for="ldh of ListLoaiDonhang" value.bind="ldh.Id">${ldh.Name}</option>
+                            </select>-->
+                    <select id="filterByLoaiDonHang" value.two-way="filterLoaiDonHang" class="form-control" style="width: 500px;">
+                 <option value="">--- Tất cả ---</option>
+                <option repeat.for="item of ListLoaiDonhang" value.bind="item.Id"> ${item.Name}</option>
+              </select>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Afiliate</label>
+                    <select id="filterByOrAfiliate" value.two-way="OrAfiliate" class="form-control" style="width: 500px;">
+                    <option value="">--- Tất cả ---</option>
+                    <option repeat.for="aff of ListAffiliate" value.bind="aff.Id">${aff.Name}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group ">
+
+
+                </div>
+              </div>
+              <!-- END COL 2 -->
+              <!-- COL 3 -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Chi nhánh</label>
+                    <select id="filterByCN" value.two-way="filterCN" class="form-control" style="width: 500px;">
+                <option value="">Tất cả Chương trình </option>
+                <option repeat.for="item of ListChinhanh" value.bind="item.Id"> ${item.Name}</option>
+              </select>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Thời gian xử lý</label>
+                    <select id="OrThoiGianXuLy" class="form-control" value.bind="OrThoiGianXuLy" ref="OrThoiGianXuLy">
+                            <option value="">--- Tất cả ---</option>
+                            <option repeat.for="status of ListCompany" value.bind="status.BusinessCode">${status.Name}</option>
+                            </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-xs-6">
+                    <label class="control-label" style="" for="">Quản lý đơn hàng</label>
+                    <select id="filterByOrQuanLyDonHang" value.two-way="OrQuanLyDonHang" class="form-control" style="width: 500px;">
+                    <option value="">--- Tất cả ---</option>
+                    <option repeat.for="nv of ListNhanvien" value.bind="nv.Id">${nv.Name}</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-6">
+                    <!--<button id="timkiem" type="submit" class="btn btn-info" click.delegate='SubmitTimkiem()' style="margin-top: 25px;">
+                            <span class="glyphicon glyphicon-search"></span> Tìm kiếm
+                        </button>-->
+                    <button type="button" id="timkiem" class="btn btn-labeled btn-info" click.delegate='SubmitTimkiem()' style="width: 100%;margin-top: 25px;">
+                   <span class="btn-label"><i class="glyphicon glyphicon-search"></i></span>Tìm kiếm</button>
+
+                  </div>
+                </div>
+              </div>
+
+          </form>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+    <!--Table-->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>DANH SÁCH ĐƠN HÀNG</h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="form-group col-md-10">
+            <label class="col">Đơn hàng đã chọn: </label>
+            <span class="badge badge-purple"> ${" " +  orderselect}</span>
+          </div>
+          <div class="form-group col-md-2">
+            <label class="col">Tổng số lượng tìm được: </label>
+            <!--<span style="color: #337ab7;font-size: 16px;"> ${" " + GiftDN.items.length}</span>-->
+            <span class="badge badge-purple"> ${" " + GiftDN.items.length}</span>
+          </div>
+        </div>
+
+
+        <div class="table-responsive">
+          <table id="tableGifts" class="table table-filter">
+            <thead>
+              <!--<th><input type="checkbox" checked.bind="checkAll" click.trigger="SelectAllBizProducts()"></th>-->
+               <th></th>
+              <th>STT</th>
+              <th>ID</th>
+              <th>Tình trạng</th>
+              <th>Loại</th>
+              <th>POS</th>
+              <th>Chi nhánh</th>
+              <th>Khách hàng</th>
+              <th>Quản lý đơn hàng</th>
+              <th>Thời gian xử lý</th>
+              <th>Ngày</th>
+              <th>Last Date</th>
+              <th>Tổng</th>
+              <th></th>
+             
+              </tr>
+            </thead>
+            <tbody ref="GiftDN" items.bind="listOrder | filterByLoaiDonHang:filterLoaiDonHang |  filterByTrangThai:filterTT | filterchinhanh : filterCN  |filterByPhone:refPhone.value | filterByQuanLyDonHang:OrQuanLyDonHang | filterByAff:OrAfiliate">
+              <tr repeat.for="DN of GiftDN.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+                <!--<td><input type="checkbox" checked.bind="DN.checked" change.delegate="searchSchoolDistrict()"></td>-->
+                <td>
+                  <div class="ckbox">
+                    <input type="checkbox" checked.bind="DN.checked" id="checkbox_${DN.MaDonhang}" change.delegate="searchSchoolDistrict()">
+                    <label for="checkbox_${DN.MaDonhang}"></label>
+                  </div>
+                </td>
+                <td> ${(current-1)*20+$index+1}</td>
+                <td>${DN.MaDonhang} </td>
+                <td>${DN.Statusname}</td>
+                <td>${DN.TenLoaiDonhang}</td>
+                <td>
+                  <image src.bind="$parent.imageExists(DN.ChuyenPos)" width="20px" />
+                </td>
+                <td>${DN.Tencn}</td>
+                <td>${DN.TenKh}</td>
+                <td>${DN.OrderManagerName}</td>
+                <td>${DN.ThoigianXuly | miliseconds}</td>
+                <td>${DN.Ngaydat | dateFormat:'DD-MM-YYYY HH:mm:ss a'}</td>
+                <td>${DN.LastUpdate | dateFormat:'DD-MM-YYYY HH:mm:ss a'}</td>
+                <td>${DN.Tongtien | vietNamDong}</td>
+
+
+                <td><button type="button" class="btn btn-warning  btn-outline btn-sm">    <span class="glyphicon glyphicon-edit"></span></button></td>
+              </tr>
+
+              <tr if.bind="GiftDN.items.length > 0">
+                <td colspan="20">
+                  <pagination page-size.bind="pagesize" total.bind="GiftDN.items.lengths" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+                </td>
+              </tr>
+              <tr if.bind="!listOrder || GiftDN.items.length <= 0">
+                <td colspan="20">
+                  Không tìm thấy đơn hàng.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!--EDIT DN FORM -->
+    <div id="addEditDN" ref="addEditDN" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 if.bind="isEdit" class="modal-title">Cập nhật Khách hàng</h5>
+            <h5 if.bind="!isEdit" class="modal-title">Thêm mới Khách hàng</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+
+              <form enctype="multipart/form-data" method="post" action="http://localhost:10495/api/uploadImage/UploadExcelKhachHang" id="ajaxUploadForm"
+                novalidate="novalidate">
+                <div class="panel panel-default" style="margin-top:20px">
+
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-xs-6 col-sm-3  form-group required">
+                        <label class="control-label">Doanh nghiệp:</label>
+                        <br>
+                        <select class="form-control" name="BusinessCode" id="BusinessCode" ref="BusinessCode">
+                            <option value="">--- Tất cả ---</option>
+                            <option repeat.for="status of ListCompany" value.bind="status.BusinessCode">${status.Name}</option>
+                            </select>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-xs-6 col-sm-3 required">
+                          <label class="control-label">Chọn file Excel (.xls, .xlsx): </label>
+                          <br>
+                          <input class="btn btn-default" style="width: 100%;" name="uploadFile" type="file" id="uploadFile" accept=".xls,.xlsx" value.bind="file"
+                          />
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                          <label class="control-label"></label>
+                          <br>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="input-form">
+                      <input type="submit" style="width: 150px; margin-top: 5px;" class="btn btn-primary btn-sm" id="ajaxUploadButton" value="Upload"
+                        title="Upload file">
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+
+            <button if.bind="isEdit" type="button" class="btn btn-danger btn-sm" click.delegate="SubmitGift()">Cập nhật</button>
+            <button if.bind="!isEdit" type="button" class="btn btn-danger btn-sm" click.delegate="SubmitGift()">Thêm</button>
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--======-->
+
+    <!--EDIT KH FORM -->
+    <!--<div id="addEditKHDN" ref="addEditKHDN" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 if.bind="isEdit" class="modal-title">Thông tin Khách hàng</h5>
+
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <form class="form-horizontal" role="form">
+                  <div class="form-group ">
+                    <h5><label class="col-md-3 control-label">Mã khách hàng:</label></h5>
+                    <div class="col-md-7">
+                      <label class="col-md-3 control-label"> ${_CodeKH}</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group ">
+                    <h5><label class="col-md-3 control-label">Ngày thêm mới KH:</label></h5>
+                    <div class="col-md-7">
+                      <label class="col-md-3 control-label"> ${_CreateDateKH |dateFormat:'M/D/YYYY'}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Tên khách hàng:</label></h5>
+                    <div class="col-md-7">
+                      <input class="form-control" type="text" value.bind="currentKH.Name" placeholder="BusinessCode" required="required" />
+                    </div>
+                  </div>
+                  <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Giới tính:</label></h5>
+                    <div class="col-md-7">
+                      <select class="form-control" value.bind="currentKH.Sex">
+                                     <option value="T">Nam</option>
+                                     <option value="F">Nữ</option>
+                                   </select>
+                    </div>
+                  </div>
+                  <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Số điện thoại:</label></h5>
+                    <div class="col-md-7">
+                      <input class="form-control" type="text" value.bind="currentKH.Phone" placeholder="BusinessCode" required="required" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-6">
+                <form class="form-horizontal" role="form">
+                  <div class="form-group required">
+                    <div class="col-md-7">
+                      <br>
+                    </div>
+                  </div>
+
+                  <div class="form-group required">
+                    <div class="col-md-7">
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <h5><label class="col-md-3 control-label">Mã nhân viên:</label></h5>
+                    <div class="col-md-7">
+                      <input class="form-control" type="text" value.bind="currentKH.Manhanvien" placeholder="BusinessCode" required="required"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Doanh nghiệp:</label></h5>
+                    <div class="col-md-7">
+                      <input class="form-control" type="text" value.bind="currentKH.BusinessCode" placeholder="BusinessCode" required="required"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group required">
+                    <h5><label class="col-md-3 control-label">Trạng thái:</label></h5>
+                    <div class="col-md-7">
+                      <select value.bind="currentKH.Status" class="form-control" required="required">
+                    <option value="A">Active</option>
+                    <option value="D">Deactive</option>
+                    </select>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+              <button if.bind="isEdit" type="button" class="btn btn-primary btn-sm" click.delegate="SubmitKhachHang()">Cập nhật</button>
+              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Quay lại</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>-->
+    <!--======-->
+    <style type="text/css">
+      element.style {
+        color: #0a9273;
+      }
+    </style>
+
+
+  </section>
+</template>

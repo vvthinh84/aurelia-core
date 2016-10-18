@@ -1,0 +1,104 @@
+<template>
+  <h3 style="margin-bottom: 30px; margin-left: 19px;">
+      <b>DANH SÁCH CHI NHÁNH SẮP HẾT QUÀ</b>
+    </h3>
+    
+  <section if.bind="!isNoAccess">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline form-filter" role="form">
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="" style="margin-bottom: 5px !important;"> Chọn Chi nhánh </label>
+              <br />
+              <select id="filterByBranch" style="width: 150%;" value.two-way="filterBranch" class="form-control">
+                <option value="">Tất cả Chi nhánh </option>
+                <option repeat.for="item of ListBranchs" value.bind="item.BranchsCodePos">${item.BranchsCodePos} -  ${item.BranchsAdd}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <div class="form-group col-md-2">
+              <select value.two-way="ReportCampaignId" class="form-control" style="width: 102%;">
+                <option value=""> Chọn chương trình cần xuất báo cáo </option>
+                <option repeat.for="item of ListCampaigns" value.bind="item.Id">${item.Name}</option>
+              </select>
+            </div>
+      <div class="form-group" style="float: left; width: 50%; margin-bottom: 10px !important;">
+        <!--<button type="button" class="btn btn-primary" click.delegate="DownloadReport()" id="test" >
+          <span class="glyphicon glyphicon-plus"></span> Xuất báo cáo SL quà các chi nhánh
+        </button>-->
+
+        <a id="test" class="btn btn-primary" click.delegate="DownloadReport()"><span class="glyphicon glyphicon-menu-hamburger"></span> Xuất báo cáo SL quà cho toàn bộ chi nhánh</a>
+      </div>
+      <span style="float: right; margin-bottom: 10px !important;"><i><u>Ghi chú</u>: Quà sắp hết có hiệu số: Tổng số quà - SL đã sử dụng &lt;= 5</i></span>
+      <table class="table table-bordered"  id="tableBranchSapHetQua">
+        <thead>
+          <tr>
+            <th>Mã Chi nhánh</th>
+            <th>ĐC Chi nhánh</th>
+            <th>Điều kiện quay</th>
+            <th>Thông tin quà sắp hết (SL Đã sử dụng/Tổng số)</th>
+          </tr>
+        </thead>
+        <tbody items.bind="ListBranchSapHetQua | filterByBranch : filterBranch" ref="ListBranchSapHetQuaData">
+          <tr repeat.for="branch of ListBranchSapHetQuaData.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+            <td>${branch.BranchCode}</td>
+            <td>${branch.BranchAdd}</td>
+            <td>Từ ${branch.ConditionDateFrom | dateFormat:'DD/MM/YYYY hh:mm:ss A'} đến ${branch.ConditionDateTo | dateFormat:'DD/MM/YYYY hh:mm:ss A'}</td>
+            <td><span style='color:red;'>${branch.BranchCode | thongTinQuaSapHet:branch.DsQuaSapHet}</td>
+          </tr>
+          <!--<hidden>${ListBranchSapHetQuaData.items.length}</hidden>-->
+          <tr if.bind="ListBranchSapHetQuaData.items.length > 0">
+            <td colspan="9">
+              <pagination current-page.bind="current"
+                          item-per-page.bind="itemperpage"
+                          page-size.bind="pagesize"
+                          total.bind="ListBranchSapHetQuaData.items.length"></pagination>
+            </td>
+          </tr>
+          <tr if.bind="ListBranchSapHetQuaData.items.length <= 0">
+            <td colspan="9">Không tìm thấy Chi nhánh sắp hết quà.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section if.bind="isNoAccess">
+    <div class="form-group">
+      <span>Bạn không có quyền truy cập trang này.</span>
+    </div>
+  </section>
+
+  <style>
+ span.select2-container {
+        width: 138% !important;
+    }
+
+.select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.form-inline .form-control {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+}
+
+th {
+    text-align: center;
+    vertical-align: center;
+}
+    </style>
+</template>

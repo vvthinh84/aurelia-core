@@ -1,0 +1,249 @@
+<template>
+    <section>
+        <h3><b>THÊM MỚI ĐƠN HÀNG TRẢ GÓP</b></h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin khách hàng</h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>Thông tin khách hàng</span> &nbsp; &nbsp; &nbsp;
+                        <hr>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Họ tên</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Name" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Giới tính</label>
+                                <div class="col-md-7">
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="order.Sex" disabled>
+                                        <option value='T'>Nam</option>
+                                        <option value=F>Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+       
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Ngày sinh</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Birthday" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">CMND</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Cmnd" disabled>
+                                </div>
+                            </div>
+                              <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Địa chỉ</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Address">
+                                </div>
+                            </div>
+                           <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Nơi ở hiện tại: </label>
+                                <div class="col-md-7">
+                                    <!--<seclect  name="" id="" style="width:100%;height:30px" value.bind="User.Noio">-->
+                                    <select name="" id="" style="width:100%;height:30px">     
+                                           <option value="order.Noiohientai">${order.NoioHientai}</option>
+                                          
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Hộ khẩu</label>
+                                <div class="col-md-7">
+                                    <!--<seclect  name="" id="" style="width:100%;height:30px" value.bind="User.Noio">-->
+                                    <select name="" id="" style="width:100%;height:30px" >    
+                                          <option value="">${order.DiachiHokhau}</option>
+                                          
+                                           
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Số điện thoại</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Email</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.Email" disabled>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Doanh nghiệp</label>
+                                <div class="col-md-7">
+                                   <select name="" id="" style="width:100%;height:30px" value.bind="order.BusinessCode">
+
+                                        <option value="">Chọn doanh nghiệp</option> 
+                                        <option repeat.for="item of ListCompany" value.bind="item.BusinessCode">${item.Name}</option>
+                                        
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                         
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Mã nhân viên</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.MaNv" disabled>
+                                </div>
+                            </div>
+                           
+                             <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Nghề nghiệp</label>
+                                <div class="col-md-7">
+                                    <!--<input type="text" class="form-control" id="inputType" value.bind="User.Chucvu">-->
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="order.Nghenghiep">
+                                          <option value="">Chọn nghề nghiệp</option>  
+                                    <option value="Học sinh/sinh viên">Học sinh/sinh viên</option>
+                                    <option value="Giáo viên">Giáo viên</option>
+                                    <option value="Công viên chức">Công viên chức</option>
+                                    <option value="Công nhân">Công nhân</option>
+                                    <option value="Kinh doanh/bán Hàng">Kinh doanh/bán Hàng</option>
+                                    <option value="Truyền thông/Quảng cáo">Truyền thông/Quảng cáo</option>
+                                    <option value="Kỹ sư">Kỹ sư</option>
+                                    <option value="Y tế">Y tế</option>
+                                    <option value="IT">IT</option>
+                                    <option value="Nhân viên văn phòng">Nhân viên văn phòng</option>
+                                    <option value="Tài chính/kế toán">Tài chính/kế toán</option>
+                                    <option value="An ninh/Bảo vệ">An ninh/Bảo vệ</option>
+                                    <option value="Nghệ thuật/Âm nhạc">Nghệ thuật/Âm nhạc</option>
+                                    <option value="Tài xế">Tài xế</option>
+                                    <option value="NV thị trường">NV thị trường</option>
+                                    <option value="1"> Khác ( nêu rõ ) </option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <label for="">Thông tin đơn hàng</label>
+                            <hr>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Địa chỉ giao hàng</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="order.AddressShipping" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <div class="col-md-3" style="margin-left:20px"></div>    
+                                 <div class="col-md-4">
+                                      <select name="" id="" value.bind="order.ListDetails[0].TinhThanh" style="width:100%;height:30px" disabled> 
+                                      <option repeat.for="item of AddressTinh" value.bind="item.Code">${item.Name}</option>\
+                                      </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="" id="" value.bind="order.ListDetails[0].quanhuyen" style="width:100%;height:30px" disabled> 
+                                      <option repeat.for="item of ListHuyen" value.bind="item.Code">${item.Name}</option>\
+                                      </select>
+                                </div>
+                            </div>
+                       
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Đơn vị trả góp</h4>
+                    </div>
+                    <div class="panel-body">
+                    <!--{"data":{"Unit":"HomeCredit","Sotientragop":1750000,"Sotientratruoc":2200000,"Tratruoc":"20","Thoihanvay":"6","ListDetails":[]}}-->
+                        <div class="col-md-12 form-group">
+                            <label for="inputType" class="col-md-4 control-label">Nhà tài chính</label>
+                            <div class="col-md-2">
+                                 ${order.Unit}
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="inputType" class="col-md-4 control-label">Hình thức trả góp</label>
+                            <div class="col-md-3">
+                               ${order.ListDetails[0].Hinhthuc}
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="inputType" class="col-md-4 control-label">Trả trước</label>
+                            <div class="col-md-3">
+                                ${order.Tratruoc}
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="inputType" class="col-md-4 control-label">Thời hạn vây</label>
+                            <div class="col-md-3">
+                                ${order.Thoihanvay}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin sản phẩm</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Màu</th>
+                                        <th>Giá(VND)</th>
+                                        <th>Số lượng</th>
+                                        <th>Hình ảnh</th>
+                                       
+                                    </tr>
+                                </thead>
+                                   <!--{"data":{"Name":"123","BirthDay":"123","Cmnd":"123","DiachiHokhau":"123","Noio":"123","Phone":"123","Email":"123","TenNguoithan":"123","SodtNguoithan":"123","BusinessCode":"20","Thoigianlamviec":"123","MaNv":"123","Chucvu":"123","Phongban":"123","Hinhthuclaodong":"123","Luongthuclanh":"123","Tongthunhap":"123","AddressShipping":"123123123","Unit":"HomeCredit","Sotientragop":1210000,"Sotientratruoc":3300000,"Tratruoc":"30","Thoihanvay":"8","ListDetails":[]}}-->
+                                <tbody>
+                                    <tr>
+                                        <td>1 ${order.ListDetails[0].Product_id}</td>
+                                        <td>${order.ListDetails[0].ProductName}</td>
+                                        <td>${order.ListDetails[0].ColorName}</td>
+                                        <td>${order.ListDetails[0].NoInterestPrice}</td>
+                                        <td>${order.ListDetails[0].Amount}</td>
+                                        <td><img src="${order.ListDetails[0].ImageDetail | convertToImange}" height="68px" width="68px"></td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-offset-6 form-group">
+                            <span for="inputType" class="control-label" style="font-size:13px;">Tổng tiền (chưa giảm giá):</span> ${tong} VNĐ
+                        </div>
+                        <div class="col-md-offset-6 form-group">
+                            <span for="inputType" class="control-label" style="font-size:13px;">Giảm giá:</span> 0 VNĐ
+                        </div>
+                        <div class="col-md-offset-6 form-group">
+                            <b for="inputType" class="control-label" style="font-size:13px;">Tổng tiên thanh toán:</b> ${tong}  VNĐ
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" click.delegate="addToOrder()">Tạo đơn hàng</button>
+                    <button class="btn btn-primary"><a href="#EnterpriseMenu/ProductToInstalment?productId=${order.ListDetails[0].ProductId}" style="color:white">Quay lại</a></button>
+                </div>
+            </div>
+        </div>
+        <!--End Row-->
+    </section>
+    <style>
+    .form-horizontal .control-label {
+        padding-top: 7px;
+        margin-bottom: 0;
+        text-align: left;
+        margin-left: 20px;
+    }
+    </style>
+</template>

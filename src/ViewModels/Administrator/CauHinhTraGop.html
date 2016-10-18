@@ -1,0 +1,59 @@
+<template>
+    <section>
+        <h3 style="margin-bottom: 30px;"><b>DANH SÁCH GÓI TRẢ GÓP</b></h3>
+
+        <form enctype="multipart/form-data" method="post" action="http://apiadmincp.vienthonga.vn/api/uploadImage/UploadExcelTraGop" id="ajaxUploadForm" novalidate="novalidate">
+            <div class="panel panel-default" style="margin-top:20px">
+                <div class="panel-heading">
+                    <h4 class="modal-title">Upload Danh sách gói trả góp</h4>
+                </div>
+                <div class="panel-body">
+                   <div class="row">
+                        <div class="col-xs-6 col-sm-3  form-group required">
+                            <label class="control-label">Áp dụng Từ ngày:</label>
+                            <br>
+                            <div class="input-group date" id="datetimepicker1">
+                                <input type='text' class="form-control" id="startDate" name="startDate" value.bind="startDate"  />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 form-group required">
+                            <label class="control-label">Đến ngày:</label>
+                            <br>
+                            <div class="input-group date" id="datetimepicker2">
+                                <input type='text' class="form-control" id="endDate" name="endDate" value.bind="endDate" />
+                                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-6 col-sm-3 required">
+                                <label class="control-label">Chọn file Excel (.xls, .xlsx): </label>
+                                <br>
+                                <input class="btn btn-default" style="width: 100%;" name="uploadFile" type="file" id="uploadFile" accept=".xls,.xlsx" value.bind="file" />
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <label class="control-label"></label>
+                                <br>
+                                <div class="input-form">
+                                    <input type="submit" style="width: 150px; margin-top: 5px;" class="btn btn-primary btn-md" id="ajaxUploadButton" value="Upload" title="Upload file">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <style type="text/css">
+        .form-group.required .control-label:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</template>

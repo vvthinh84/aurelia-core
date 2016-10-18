@@ -1,0 +1,77 @@
+<template>
+    <section>
+        <div class="form-group" style="margin-top:20px">
+            <button type="button" class="btn btn-primary" click.delegate="goToBack()">
+                <span class="glyphicon glyphicon-arrow-left"></span> Quay về Quản lý sản phẩm
+            </button>
+        </div>
+        <form enctype="multipart/form-data" method="post" action="https://apivnpost.vienthonga.vn/api/uploadImage/UploadFiles" id="ajaxUploadForm" novalidate="novalidate">
+            <div class="panel panel-default" style="margin-top:20px">
+                <div class="panel-heading">
+                    <h4 class="modal-title">Upload sản phẩm</h4>
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group col-md-3">
+                            <label>Chọn đối tác :</label>
+                            <br />
+                            <select ref="businessId" id="businessId" class="form-control" name="businessId" value='businessId'>
+                                <option value="">Tất cả</option>
+                                <option repeat.for="item of business" value.two-way="item.BusinessId"> ${item.Name}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="filterbsnessID">Chọn Chương trình:</label>
+                            <br />
+                            <select class="form-control" id="campaignId" name="campaignId" value.bind='campaignId'>
+                                <option repeat.for="item of campaign | filterBusinessId:businessId.value" value.two-way="item.Business_campaign_id">${item.Name}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Áp dụng Từ ngày:</label>
+                            <br>
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" id="startDate" name="startDate" value.bind="startDate" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 form-group">
+                            <label class="control-label">Đến ngày:</label>
+                            <br>
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input type='text' class="form-control" id="endDate" name="endDate" value.bind="endDate" />
+                                <span class="input-group-addon">
+                                   <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                       </div>
+                       
+                        <div class="col-md-3 form-group" style="margin-left:15px !important">
+                                <input class="btn btn-default" name="uploadFile" type="file" id="uploadFile" accept=".xls,.xlsx" value.bind="file"/>
+                        </div>
+                    
+                    </div>
+
+                    <br>
+                    <div class="input-form">
+                        <input type="submit" class="button button-gray xs-mt-10" id="ajaxUploadButton" value="Upload" title="Upload file"  >
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <style type="text/css">
+    .form-group.required .control-label:after {
+        content: " *";
+        color: red;
+    }
+    </style>
+</template>

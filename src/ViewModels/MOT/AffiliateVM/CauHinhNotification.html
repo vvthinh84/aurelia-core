@@ -1,0 +1,52 @@
+<template>
+  <section>
+    <h3 style="margin-bottom: 30px;">
+      <b>CẤU HÌNH NOTIFICATION</b>
+    </h3>
+    <div class="panel panel-default" style="margin-top:20px">
+                <div class="panel-heading">
+                    <h4 class="modal-title">Thông tin Notification</h4>
+                </div>
+                <div class="panel-body">
+                   <div class="row">
+                        <div class="col-xs-6 col-sm-3 form-group required">
+                            <label class="control-label">Device Type:</label>
+                            <br>
+                            <select value.two-way='AppDevice.DeviceOs' class="form-control" change.delegate="ChangeDeviceOs()">
+                                <option value="All">Tất cả</option>
+                                <option value="Android">Android</option>
+                                <option value="iOS">iOS</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 form-group">
+                            <label class="control-label">Message Type: </label>
+                            <br>
+                            <input class="form-control" type="text" value.bind="AppDevice.MessageType" placeholder="Message Type"/>
+                        </div>
+                        
+                    </div>
+
+                     <div class="row">
+                        <div class="col-xs-3 col-sm-3 form-group required">
+                            <label class="control-label">Alert: </label>
+                            <br>
+                            <textarea class="form-control" value.bind="AppDevice.Alert"  cols="40" rows="5"  placeholder="Alert"></textarea>
+                        </div>
+                         <div class="col-xs-6 col-sm-3 form-group">
+                            <label class="control-label">Message Value:</label>
+                            <br>
+                            <textarea class="form-control" value.bind="AppDevice.MessageValue"  cols="40" rows="5"  placeholder="Message Value"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-xs-6 col-sm-6 form-group">
+                            <button type="button" style="width: 150px; margin-top: 5px;" class="btn btn-danger" click.delegate="SendNotification()">Send</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+  </section>
+</template>

@@ -1,0 +1,156 @@
+<template>
+  <section>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" click.delegate="BackToBannerMng()">
+        <span class="glyphicon glyphicon-arrow-left"></span> Quay về Quản lý Banner
+      </button>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="modal-title">Chỉnh sửa Banner</h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <!--Row1-->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+              <label class="control-label">Chọn Chương trình </label>
+              <select name="BizCampaign" value.bind="BannerToEdit.CampaignId" class="form-control" readonly disabled="true">
+              <option value="">--- Chọn Chương trình ---</option>
+              <option repeat.for="item of BizCampaigns" model.bind="item.BusinessCampaignId" value.bind="item.BusinessCampaignId"> ${item.Name}</option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Bài viết sản phẩm</label>
+              <div id="BannerDescription"></div>
+            </div>
+          </div>
+          <!--End Row1-->
+
+          <!--Row2-->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+              <label class="control-label">Title hay ALT cho banner</label>
+              <input class="form-control" type="text" value.bind="BannerToEdit.Title" />
+            </div>
+            <div class="form-group">
+              <label class="control-label">URL</label>
+              <input class="form-control" type="text" value.bind="BannerToEdit.Url" value.two-way="BannerToEdit.Url" />
+            </div>
+            <div class="form-group">
+              <label class="control-label">Ngày Bắt Đầu</label>
+              <br />
+              <div class="input-group " style="width: 45%;">
+
+                <input id="dtBannerStartDate" class="form-control" value.two-way="startday | dateFormat:'YYYY-MM-DD HH:mm:ss '">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+              </div>
+            </div>
+            <div class=" form-group ">
+              <label class="control-label">Ngày Kết Thúc</label>
+              <br />
+              <div class="input-group " style="width: 45%;">
+                <input id="dtBannerEndDate" class="form-control" value.two-way="endday | dateFormat:'YYYY-MM-DD HH:mm:ss '">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+              </div>
+            </div>
+            <div class="form-group" style="height: 69px;">
+              <label class="control-label">Loại</label>
+              <select name="" value.bind="BannerToEdit.Type" class="form-control" style="width: 45%;" readonly disabled="true">
+              <option value="G" selected="selected">Graphic banner</option>
+              <option value="T">Text banner</option>
+            </select>
+            </div>
+            <!--<div class="form-group">
+              <label class="control-label">Vị trí trên trang</label>
+              <select name="" value.bind="BannerToEdit.Position" class="form-control" style="width: 45%; height: 35px;">
+              <option selected="selected" value="">Không có vị trí</option>
+              <option repeat.for="item of Positions" model.bind="item.Position" value.bind="item.Position"> ${item.PositionName}</option>
+            </select>
+            </div>-->
+
+ <div class=" form-group">
+              <label class="control-label">Vị trí trên trang</label><br>
+              <select id="filterPositions" value.bind="BannerToEdit.Position" ref="filterPosition" class="form-control">
+              <option selected="selected" value="">Không có vị trí</option>
+              <option repeat.for="item of Positions" model.bind="item.Position" value.bind="item.Position"> ${item.PositionName}</option>
+            </select>
+            </div>
+
+
+            <div class="form-group">
+              <label class="control-label">Vị trí banner trong list sản phẩm</label>
+              <select value.bind="BannerToEdit.ImagePosition" class="form-control" style="width: 45%; height: 35px;">
+              <option selected="selected" value="">--- Chọn vị trí ---</option>
+              <option repeat.for="item of ImagePositionArray"  model.bind="item.value" value.bind="item.value"> ${item.name}</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Kích thước Banner</label>
+              <select value.two-way="BannerToEdit.ImageType" class="form-control" style="width: 45%;">
+              <option selected="selected" value="">--- Chọn kích thước ---</option>
+              <option repeat.for="item of ImageTypeArray"  model.bind="item.value" value.bind="item.value"> ${item.name}</option>
+            </select>
+            </div>
+
+          </div>
+          <!--End Row2-->
+
+
+          <!--Row3-->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+              <label class="control-label">Link hình cho web mới</label>
+              <input class="form-control" type="text" value.bind="BannerToEdit.Image" />
+            </div>
+            <div class="form-group">
+              <label class="control-label">Image</label>
+              <br />
+              <image src.bind="BannerToEdit.Image != '' ? BannerToEdit.Image : 'dist/resources/images/no_image.gif'" style="max-width: 500px"
+              />
+            </div>
+            <div class="form-group">
+              <label class="control-label">Link hình cho mobile</label>
+              <input class="form-control" type="text" value.bind="BannerToEdit.ImageMobile" />
+            </div>
+            <div class="form-group">
+              <label class="control-label">Image</label>
+              <br />
+              <image src.bind="BannerToEdit.ImageMobile != '' ? BannerToEdit.ImageMobile : 'dist/resources/images/no_image.gif'" style="max-width: 500px"
+              />
+            </div>
+          </div>
+          
+        </div>
+        
+        <!--End Row3-->
+      </div>
+        <div class="panel-footer" style="text-align: center;">
+                <button type="button" class="btn btn-danger" click.delegate="SubmitBanner()" >Cập nhật Banner</button>
+      </div>
+
+
+
+      <!--<div class="panel-footer" style="height: 40px;">
+        <span style="float: left; color: red">(*) là các trường bắt buộc nhập</span>
+      </div>-->
+
+    </div>
+  </section>
+  <style type="text/css">
+    .trumbowyg-box,
+    .trumbowyg-editor {
+      width: 100% !important;
+    }
+    
+    .form-group.required .control-label:after {
+      content: " *";
+      color: red;
+    }
+    
+    span.select2-container {
+      width: 45% !important;
+    }
+  </style>
+</template>

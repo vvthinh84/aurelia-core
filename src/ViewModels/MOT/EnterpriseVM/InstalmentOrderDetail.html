@@ -1,0 +1,154 @@
+<template>
+ 
+    <h1>CHI TIẾT SẢN PHẨM</h1>
+     <form class="form-horizontal" role="form">
+    <div class="panel panel-default" style="margin-top: -2px !important;">
+        <div class="panel-heading">
+            <h4>Chi tiết sản phẩm</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+               
+                <div class="col-md-6">
+                   
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Mã sản phẩm</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.Product_id" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Tên sản phẩm</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.ProductName" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Mã màu</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.Product_color_code" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Tên màu</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.ColorName" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Loại sản phẩm</label>
+                            <div class="col-md-7">
+
+                                <select style="width:100%;height:30px" value.bind="order.Nhomhang">
+                                    <option repeat.for="item of LoaiSanpham" value.bind="item">${item}</option>  
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Thương hiệu</label>
+                            <div class="col-md-7">
+                                <select name="" id="" style="width:100%;height:30px" value.bind="order.Brand">
+                                    <option repeat.for="i of Thuonghieu" value.bind="i">${i}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Doanh nghiệp</label>
+                            <div class="col-md-7">
+                                <select style="width:100%;height:30px" value.bind="order.BusinessId" disabled>
+                                    <option repeat.for="i of Business" value.bind="i.Business_id">${i.Name}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Giá bán tiền mặt</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.Price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Giá trả góp 0%</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.NoInterestPrice">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Giá trả góp lãi xuất</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="inputType" value.bind="order.InterestRatePrice">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Trạng thái</label>
+                            <div class="col-md-7">
+                                <select style="width:100%;height:30px" value.bind="order.Status">
+                                    <option value="">Chon trạng thái</option>
+                                    <option value="A">Active</option>
+                                    <option value="D">Deactive</option>
+                                </select>
+                            </div>
+                        </div>
+                   
+                </div>
+                <!--Content Left-->
+                <div class="col-md-6">
+                  
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Ngày thêm SP</label>
+                            <div class="col-md-3">
+                                <input type="text" id="txtFilterStartDateImport" class="form-control" placeholder="Ngày thêm SP từ" style="width:auto" value.bind="order.Modified_date | dateFormat:'M/D/YYYY hh:mm:ss a'" disabled>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group">
+                             <label for="inputType" class="col-md-3 control-label">Ngày áp dụng từ</label>
+                            <div class="col-md-3">
+                                <input type="text" id="txtFilterDateFrom" class="form-control" placeholder="Ngày áp dụng từ" style="width:auto" value.bind="order.StartDate | dateFormat:'M/D/YYYY hh:mm:ss a'">
+                            </div>
+                            <label for="inputType" class="col-md-3 control-label">đến</label>
+                            <div class="col-md-3">
+                                <input type="text" id="txtFilterDateTo" class="form-control" placeholder="đến" style="width:auto" value.bind="order.EndDate | dateFormat:'M/D/YYYY hh:mm:ss a'">
+                            </div>
+                        </div>
+                       
+
+
+                        <div class="form-group">
+                            <label for="inputType" class="col-md-3 control-label">Mô tả</label>
+                            <div class="col-md-7">
+                              <textarea class="col-md-12" style="width:100%;height:60%" value.bind="order.Promotion_description">
+                                         
+                               </textarea>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                             <div class="col-md-offset-3">
+                             <input type="checkbox" checked.bind="checked">
+                             <i>Áp dụng nội dung "Mô tả" cho tất cả các màu của sản phẩm này</i>
+                             </div>
+                        </div>
+                                
+                               
+                        
+                  
+                </div>
+                <!--content Right-->
+
+                 
+            </div>
+        </div>
+    </div>
+          <div class="form-group">
+            <div class="col-md-offset-5">
+            	 <button class="btn btn-primary" click.delegate="editIntalment(order)">Cập nhật thông tin</button>
+                  <button class="btn btn-primary"><a href="#/EnterpriseMenu/ProductsMng" style="color:white">Quay Lại</a></button>
+            </div>
+                  
+
+           </div>
+    </form>
+
+</template>

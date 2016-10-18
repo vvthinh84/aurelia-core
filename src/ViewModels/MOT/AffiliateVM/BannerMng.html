@@ -1,0 +1,211 @@
+<template>
+  <section>
+    <h3 style="margin-bottom: 30px;">
+      <b>QUẢN LÝ BANNER</b>
+    </h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form role="form">
+         <div class="row">
+
+            <div class="form-group col-md-2">
+              <label for=""> Chọn Hệ thống </label>
+              <br />
+              <select name="Business" value.two-way="filterBusiness" value.bind="BusinessId" class="form-control biz-product-filter-width" change.delegate="ChangeBusiness()">
+                  <option value="0">-- Chọn Hệ thống --</option>
+                  <option repeat.for="item of Business" model.bind="item.BusinessId" value.bind="item.BusinessId"> ${item.Name}</option>
+              </select>
+              <br />
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="">Chọn Chương trình </label>
+              <br />
+              <select id="filterByCampaign" value.two-way="filterCampaign" class="form-control" style="width: 500px;">
+                <option value="">Tất cả Chương trình </option>
+                <option repeat.for="item of BizCampaigns" value.bind="item.BusinessCampaignId"> ${item.Name}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for=""> Chọn Vị trí </label> <br />
+              <select id="filterPositions"  value.bind="Banner.Position" ref="filterPosition" class="form-control">
+                <option value="">Không có vị trí</option>
+                <option repeat.for="item of Positions" value.bind="item.Position"> ${item.PositionName}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for=""> Tên Banner </label>
+              <br />
+              <input type="text" class="form-control" ref="filterName" placeholder="Nhập Tên banner">
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <a type="button" class="btn btn-primary" href="#/MOTMenus/AddBanner?business=${filterBusiness}&campaign=${filterCampaign}">
+        <span class="glyphicon glyphicon-plus"></span> Tạo mới Banner
+      </a>
+    </div>
+       <div class="table-responsive">
+    <table id="tableBanner" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th style="width: 150px;">Campaign</th>
+          <th>Image</th>
+          <th>URL</th>
+          <th style="width: 130px;">Ngày Bắt Đầu</th>
+          <th style="width: 130px;">Ngày Kết Thúc</th>
+          <th style="width: 150px;">Vị trí</th>
+          <th>Mô tả</th>
+          <th style="width: 70px;">Trạng Thái</th>
+          <th style="width: 180px;">Hành Động</th>
+        </tr>
+      </thead>
+      <tbody ref="mydata" items.bind="ListBanners | filterPosition : filterPosition.value | filterCampaign : filterCampaign | filterName : filterName.value">
+        <tr repeat.for="banner of mydata.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+          <th>${banner.Id}</th>
+          <td>
+            <span if.bind="!show">${banner.Title}</span>
+            <input if.bind="show" class="form-control" type="text" value.bind="banner.Title" />
+          </td>
+          <td>
+            <span if.bind="!show">${banner.CampaignName}</span>
+            <select if.bind="show" value.bind="banner.CampaignId" class="form-control">
+              <option repeat.for="item of BizCampaigns" value.bind="item.BusinessCampaignId" selected.bind="(banner.CampaignId == item.BusinessCampaignId) ? 'selected' : ''"> ${item.Name}</option>
+            </select>
+          </td>
+          <td>
+            <image class="pop" click.trigger="$parent.viewLargeImage(banner.Image)" src.bind="$parent.imageExists(banner.Image)" width="120px" />
+          </td>
+          <td>
+            <span if.bind="!show">${banner.Url}</span>
+            <input if.bind="show" class="form-control" type="text" value.bind="banner.Url" value.two-way="banner.Url" />
+          </td>
+          <td>
+            <span>${banner.StartDate | dateFormat:'DD/MM/YYYY HH:mm:ss'}</span>
+          </td>
+          <td>
+            <span>${banner.EndDate | dateFormat:'DD/MM/YYYY HH:mm:ss'}</span>
+          </td>
+          <td>
+            <span if.bind="!show">${banner.Position}</span>
+            <select if.bind="show" value.bind="banner.Position" class="form-control">
+              <option repeat.for="item of Positions" model.bind="item.Position" value.bind="item.Position"> ${item.PositionName}</option>
+            </select>
+          </td>
+          <td>
+            <span>${banner.Description}</span>
+            <!-- <div  if.bind="show" id="BannerDescription"></div> -->
+          </td>
+          <td style="width: 150px;">
+            <span if.bind="!show">${$parent.getBannerStatusName(banner.Status)}</span>
+            <select if.bind="show" value.bind="banner.Status" class="form-control">
+              <option value="A">Hiệu lực</option>
+              <option value="H">Ẩn</option>
+              <option value="D">Vô hiệu lực</option>
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-info btn-xs" click.delegate="$parent.goToEdit(banner)">
+              <span class="glyphicon glyphicon-edit"></span> Sửa
+            </button>
+
+            <!-- <button if.bind="show" type="button" class="btn btn-primary  btn-xs" click.delegate="show=!show" click.trigger="$parent.UpdateBanner(banner)">
+              <span class="glyphicon glyphicon-ok"></span> Cập nhật
+            </button>
+            <button if.bind="show" type="button" class="btn btn-warning btn-xs" click.delegate="show=!show">
+              <span class="glyphicon glyphicon-erase"></span> Đóng
+            </button> -->
+
+          </td>
+        </tr>
+        <tr if.bind="mydata.items.length > 0">
+          <td colspan="11">
+            <pagination page-size.bind="pagesize" total.bind="mydata.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+          </td>
+        </tr>
+      </tbody>
+      <tbody if.bind="ListBanners == null || mydata.items.length <= 0">
+        <tr>
+          <td colspan="11">
+            Không có banner nào.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <img src="" class="imagepreview" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <style type="text/css">
+    .filter-margin-left {
+      margin-left: 30px;
+    }
+
+    #tableBanner img {
+      cursor: -moz-zoom-in;
+      cursor: -webkit-zoom-in;
+      cursor: zoom-in;
+    }
+
+    #tableBanner button {
+      margin-top: 4px;
+    }
+
+    .modal {
+      text-align: center;
+      padding: 0 !important;
+    }
+
+    .modal:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -4px;
+    }
+
+    .modal-dialog {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    span.select2-container {
+      width: 100% !important;
+    }
+
+    .select2-selection {
+      width: 280px;
+    }
+    .select2-container .select2-selection--single {
+      height: 34px !important;
+       width: 280px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+      border: 1px solid #ccc !important;
+    }
+  </style>
+
+</template>

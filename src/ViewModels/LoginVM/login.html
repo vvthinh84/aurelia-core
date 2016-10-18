@@ -1,0 +1,69 @@
+<template>
+  <section>
+    <div class="panel panel-default col-md-4 col-md-offset-4 col-sm-12" style="margin-top: 100px;">
+      <div class="panel-body"></div>
+      <form class="form" role="form" submit.delegate="login()" validate.bind="validation">
+        <img id="profile-img" class="profile-img-card" src="dist/Resources/Images/vta_login.png"/>
+        <div class="form-group">
+              <div class="splash" if.bind="!pendding" style=" margin-top: -44%;">
+              <i class="fa fa-spinner fa-pulse" style="
+                                        margin-top: 48%;
+                                        margin-left: 1%;
+                                    "></i>
+              </div>
+          <label for="username">Tài khoản</label>
+          <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+            <input class="form-control" type="text" id="username" placeholder="Tài khoản" value.bind="username" validate="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pwd">Mật khẩu</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+            <input class="form-control" type="password" id="pwd" placeholder="Mật khẩu" value.bind="password" validate="password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Ghi nhớ</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="" style="width: 150px; margin-bottom: 35px; margin-left: 50px;">
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <style>
+    body {
+  background: #e6e7e8 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAALklE…u7hYGLIARJIZLAVgSlwK4JDYFKJLoCjAkkRVglYQpAAD+vBrND3AxrgAAAABJRU5ErkJggg==") repeat;
+}
+
+.form-group {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+}
+
+body > div > router-view > section > div > form > div:nth-child(5) > div > button {
+  margin-left: 27px;
+  width: 150px;
+}
+
+    </style>
+</template>

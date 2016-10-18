@@ -1,0 +1,19 @@
+<template>
+  <style>body &gt; span.select2-container { z-index: 100111; } ai-dialog-overlay.active { background-color: black; opacity: .5; z-index: 9998 !important; } .edit-form {} ai-dialog-container { margin: 30px auto; z-index: 100005 !important; }
+  ai-dialog, ai-dialog-container&gt;div&gt;div { min-width: 400px; margin: auto; display: block; } ai-dialog&gt;ai-dialog-header { padding: 11px 16px 4px; } ai-dialog&gt;ai-dialog-header&gt;button { display: inline-block; float: none; }
+  ai-dialog-overlay.active { background-color: black; opacity: .5; }</style>
+  <ai-dialog class="edit-form">
+    <ai-dialog-header>
+      <h4>Bạn muốn DeActive này không?</h4>
+      <h3>${entity.Name}</h3>
+    </ai-dialog-header>
+    <ai-dialog-footer>
+      <button class="btn btn-warning btn-xs"
+              click.trigger="dialogController.cancel()"
+              style="height:40px;width:60px;">Hủy</button>
+      <button class="btn btn-warning btn-xs"
+              click.delegate="deleteDeActive(entity)"
+              style="height:40px;width:60px;">DeActive</button>
+    </ai-dialog-footer>
+  </ai-dialog>
+</template>

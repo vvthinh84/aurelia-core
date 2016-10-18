@@ -1,0 +1,124 @@
+<template>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-7"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span> <span class="icon-bar"></span>
+          <span class="icon-bar"></span> </button> <a class="navbar-brand">MOT</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">
+        <ul class="nav navbar-nav">
+
+          <li class="dropdown" if.bind="showDropdownAffiliate">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">AFFILIATE
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="row.title!='Cấu hình Notification' && 
+                                                 row.title!='Quản lý đơn hàng' &&
+                                                 row.title!='Quản lý rổ sản phẩm' &&
+                                                 row.title!='Tra cứu hàng tồn' &&
+                                                 row.title!='Quản lý khách hàng' &&
+                                                 row.title!='Quản lý doanh nghiệp' &&
+                                                 row.title!='Quản lý liên hệ' &&
+                                                 row.title!='Quản lý rổ sản phẩm Factory' &&
+                                                 row.title!='Report Flash Deal' &&
+                                                 row.title!='Report PreOrder' &&
+                                                 row.title!='Quản lý đơn hàng   ' &&
+                                                 row.title!='EventSale GeneralCode'">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="dropdown" if.bind="showDropdownEnterpriseVM">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">FACTORY
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="
+                                                 row.title=='Quản lý đơn hàng'||
+                                                 row.title=='Quản lý rổ sản phẩm Factory'||
+                                                 row.title=='Quản lý khách hàng' || 
+                                                 row.title=='Quản lý doanh nghiệp' ||
+                                                 row.title=='Quản lý liên hệ'">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>
+
+
+          <li class="dropdown" if.bind="showDropdownEnterpriseVM">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">SẢN PHẨM
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                  <a href.bind="row.href" if.bind="row.title=='Quản lý rổ sản phẩm'">${row.title}</span></a>
+                <a href.bind="row.href" if.bind="row.title=='Tra cứu hàng tồn'">${row.title}</span></a>
+               
+
+              </li>
+            </ul>
+          </li>
+
+
+          <li class="dropdown" if.bind="showDropdownEnterpriseVM">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">QL ĐƠN HÀNG
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="row.title=='Quản lý đơn hàng   '">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>
+
+  <li class="dropdown" if.bind="showDropdownEnterpriseVM">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">REPORT
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="row.title=='Report Flash Deal' ||  row.title=='Report PreOrder'">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>
+
+     <li class="dropdown" if.bind="showDropdownEnterpriseVM">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">VTA EVENT
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="row.title=='EventSale GeneralCode'">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>      
+
+
+             <li class="dropdown" if.bind="showDropdownNotification">
+            <a href="#" class="dropdown-toggle ${row.isActive ? 'active' : ''}" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">VTA APP
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+                <a href.bind="row.href" if.bind="row.title=='Cấu hình Notification'">${row.title}</span></a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="au-animate">
+    <div class="row">
+      <div class="col-md-12" style="padding: 0">
+        <router-view></router-view>
+      </div>
+    </div>
+  </section>
+</template>

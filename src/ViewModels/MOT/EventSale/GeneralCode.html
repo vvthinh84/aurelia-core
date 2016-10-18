@@ -1,0 +1,106 @@
+<template>
+ <section>  
+       <h3>Event Sale</h3>
+       <div class="panel panel-default">
+                   <div class="panel-heading">
+                       <h3 class="panel-title">Lọc</h3>
+                  </div>
+                  <div class="panel-body">
+                         <form submit.delegate="searchBy(entity)">
+                                    <div class="form-group col-md-2">
+                                        <label for="exampleInputEmail1">Tên</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" ref="filterByName">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="exampleInputPassword1">Mã code</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="mã code" ref="filterByCode">
+                                    </div>
+                                   
+                                   
+                        </form>  
+                 </div>
+                 <!--End panel-body-->
+      </div> 
+     <!--panel-default--> 
+     <div style="margin-bottom:10px">
+      <button class="btn btn-default" click.delegate="CreateGeneralCode(item)" data-toggle="tooltip" title="Tạo mới"><span class="glyphicon glyphicon-edit"></span></button>
+      <button class="btn btn-default" data-toggle="tooltip" title="Export Excel"><a id="test"  click.delegate="download()" style="color:black;text-decoration:none"><span class="glyphicon glyphicon-download"></span></a></button>
+    
+     </div>
+    <div class="panel panel-default">
+                  
+                  <div class="panel-body">
+                           <div class="table-responsive">
+                                    <table id="tableGifts" class="table table-bordered">
+                                        
+                                        <thead>
+                                        <tr>
+                                            <th>Stt</th>
+                                            <th>Tên</th>
+                                            <th>Mã Code</th>
+                                            <th>Áp dụng Từ ngày</th>
+                                            <th>Áp dụng Đến ngày</th>
+                                        
+                                            <th>Từ giá</th>
+                                            <th>Đến giá</th>
+ 
+                                            <th>Giá trị giảm</th>
+                                            <th>Số lượng áp dụng</th>
+                                             <th>Đã sử dụng</th>
+                                            <th>Mã pos</th>
+                                            <th>Trạng thái</th>
+                                            <th></th>
+                                            
+                                        </tr>
+                                        </thead>
+                                        <tbody ref="mydata" items.bind="listEvent | filterByName:filterByName.value | filterByCode:filterByCode.value">
+                                          <tr repeat.for="item of mydata.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)"> 
+                                               <td>${(current-1)*10+$index+1}</td>
+                                                <td>${item.Name}</td>
+                                                <td>${item.Code}</td>
+                                                <td>${item.StartDate | dateFormat:'M/D/YYYY hh:mm:ss a'}</td>
+                                                <td>${item.EndDate | dateFormat:'M/D/YYYY hh:mm:ss a'}</td>
+
+                                                <td>${item.FromPrice}</td>
+                                                <td>${item.ToPrice}</td>
+                                                <td>${item.DiscountValue}</td>
+                                                <td>${item.TotalNumber}</td>
+
+                                                <td>${item.UsedNumber}</td>
+                                                <td>${item.PosCode}</td>
+                                                <td>${item.Status}</td>
+                                                <td> 
+                                                    
+                                                    <button click.delegate="$parent.CreateGeneralCode(item)" data-toggle="tooltip" title="Cập nhật"><span class="glyphicon glyphicon-edit"></span></button>
+                                                    <button click.delegate="$parent.DeleteGeneralCode(item)" data-toggle="tooltip" title="DeActive" if.bind="item.Status!='D'"><span class="glyphicon glyphicon-remove" style="color:red"> </span></button>
+                                                    
+                                                </td>
+
+                                          </tr>
+                                    
+                                          <tr if.bind="mydata.items.length > 0">
+                                                <td colspan="13">
+                                                    <pagination page-size.bind="pagesize" total.bind="mydata.items.length" item-per-page.bind="itemperpage" current-page.bind="current"></pagination>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody if.bind="mydata.items.length <= 0">
+                                            <tr>
+                                                <td colspan="13">
+                                                    Không có sản phẩm.
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     
+                                        
+                                        
+                                    </table>
+                              </div>
+      
+                 </div>
+                 <!--End panel-body-->
+      </div> 
+     <!--panel-default--> 
+
+ </section>
+</template>

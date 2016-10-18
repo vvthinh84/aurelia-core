@@ -1,0 +1,371 @@
+<template>
+    <section>
+        <h3><b>THÊM MỚI ĐƠN HÀNG TRẢ GÓP</b></h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin khách hàng</h4>
+                    </div>
+                    <div class="panel-body">
+                        <span>Thông tin khách hàng</span> &nbsp; &nbsp; &nbsp;
+                        <hr>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group required" >
+                                <label for="inputType" class="col-md-3 control-label">Họ tên</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.Name">
+                                </div>
+                            </div>
+                            <div class="form-group required" >
+                                <label for="inputType" class="col-md-3 control-label">Giới tính</label>
+                                <div class="col-md-7">
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.Sex">
+                                        <option value="">Chọn giới tính</option>
+                                        <option value='T'>Nam</option>
+                                        <option value=F>Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Ngày sinh</label>
+                                <div class="col-md-7">
+                                    <input id="txtFilterDateTo" type="text" class="form-control" value.bind="User.Birthday" style="width: 51% !important;float:left" placeholder="Ngày sinh">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">CMND</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.Cmnd" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Địa chỉ</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.Address">
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Nơi ở hiện tại</label>
+                                <div class="col-md-7">
+                                    <!--<seclect  name="" id="" style="width:100%;height:30px" value.bind="User.Noio">-->
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.NoioHientai">     
+                                           <option value="">Chọn nơi ở hiện tại</option>
+                                            <option value='Hồ Chí Minh'>Hồ Chí Minh</option>
+                                            <option value='Hà Nội'>Hà Nội</option>
+                                            <option value='Đà Nẵng'>Đà Nẵng</option>
+                                            <option value='An Giang'>An Giang</option>
+                                            <option value='Bà Rịa - Vũng Tàu'>Bà Rịa - Vũng Tàu</option>
+                                            <option value='Bắc Giang'>Bắc Giang</option>
+                                            <option value='Bắc Kạn'>Bắc Kạn</option>
+                                            <option value='Bạc Liêu'>Bạc Liêu</option>
+                                            <option value='Bắc Ninh'>Bắc Ninh</option>
+                                            <option value='Bến Tre'>Bến Tre</option>
+                                            <option value='Bình Định'>Bình Định</option>
+                                            <option value='Bình Dương'>Bình Dương</option>
+                                            <option value='Bình Phước'>Bình Phước</option>
+                                            <option value='Bình Thuận'>Bình Thuận</option>
+                                            <option value='Cà Mau'>Cà Mau</option>
+                                            <option value='Cần Thơ'>Cần Thơ</option>
+                                            <option value='Đắk Lắk'>Đắk Lắk</option>
+                                            <option value='Đắk Nông'>Đắk Nông</option>
+                                            <option value='Đồng Nai'>Đồng Nai</option>
+                                            <option value='Đồng Tháp'>Đồng Tháp</option>
+                                            <option value='Gia Lai'>Gia Lai</option>
+                                            <option value='Hải Phòng'>Hải Phòng</option>
+                                            <option value='Hà Giang'>Hà Giang</option>
+                                            <option value='Hà Nam'>Hà Nam</option>
+                                            <option value='Hà Tĩnh'>Hà Tĩnh</option>
+                                            <option value='Hải Dương'>Hải Dương</option>
+                                            <option value='Hoà Bình'>Hoà Bình</option>
+                                            <option value='Huế'>Huế</option>
+                                            <option value='Khánh Hoà'>Khánh Hoà</option>
+                                            <option value='Kon Tum'>Kon Tum</option>
+                                            <option value='Kiên Giang'>Kiên Giang</option>
+                                            <option value='Lào Cai'>Lào Cai</option>
+                                            <option value='Lai Châu'>Lai Châu</option>
+                                            <option value='Lạng Sơn'>Lạng Sơn</option>
+                                            <option value='Lâm Đồng'>Lâm Đồng</option>
+                                            <option value='Long An'>Long An</option>
+                                            <option value='Nam Định'>Nam Định</option>
+                                            <option value='Nghệ An'>Nghệ An</option>
+                                            <option value='Ninh Thuận'>Ninh Thuận</option>
+                                            <option value='Ninh Bình'>Ninh Bình</option>
+                                            <option value='Quảng Bình'>Quảng Bình</option>
+                                            <option value='Quảng Nam'>Quảng Nam</option>
+                                            <option value='Quảng Ngãi'>Quảng Ngãi</option>
+                                            <option value='Quảng Ninh'>Quảng Ninh</option>
+                                            <option value='Quảng Trị'>Quảng Trị</option>
+                                            <option value='Phú Thọ'>Phú Thọ</option>
+                                            <option value='Sóc Trăng'>Sóc Trăng</option>
+                                            <option value='Sơn La'>Sơn La</option>
+                                            <option value='Tây Ninh'>Tây Ninh</option>
+                                            <option value='Thái Bình'>Thái Bình</option>
+                                            <option value='Thái Nguyên'>Thái Nguyên</option>
+                                            <option value='Thanh Hoá'>Thanh Hoá</option>
+                                            <option value='Tiền Giang'>Tiền Giang</option>
+                                            <option value='Trà Vinh'>Trà Vinh</option>
+                                            <option value='Tuyên Quang'>Tuyên Quang</option>
+                                            <option value='Vĩnh Long'>Vĩnh Long</option>
+                                            <option value='Vĩnh Phúc'>Vĩnh Phúc</option>
+                                            <option value='Yên Bái'>Yên Bái</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Hộ khẩu</label>
+                                <div class="col-md-7">
+                                    <!--<seclect  name="" id="" style="width:100%;height:30px" value.bind="User.Noio">-->
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.DiachiHokhau">    
+                                          <option value="">Chọn nơi ở hiện tại</option>
+                                            <option value='Hồ Chí Minh'>Hồ Chí Minh</option>
+                                            <option value='Hà Nội'>Hà Nội</option>
+                                            <option value='Đà Nẵng'>Đà Nẵng</option>
+                                            <option value='An Giang'>An Giang</option>
+                                            <option value='Bà Rịa - Vũng Tàu'>Bà Rịa - Vũng Tàu</option>
+                                            <option value='Bắc Giang'>Bắc Giang</option>
+                                            <option value='Bắc Kạn'>Bắc Kạn</option>
+                                            <option value='Bạc Liêu'>Bạc Liêu</option>
+                                            <option value='Bắc Ninh'>Bắc Ninh</option>
+                                            <option value='Bến Tre'>Bến Tre</option>
+                                            <option value='Bình Định'>Bình Định</option>
+                                            <option value='Bình Dương'>Bình Dương</option>
+                                            <option value='Bình Phước'>Bình Phước</option>
+                                            <option value='Bình Thuận'>Bình Thuận</option>
+                                            <option value='Cà Mau'>Cà Mau</option>
+                                            <option value='Cần Thơ'>Cần Thơ</option>
+                                            <option value='Đắk Lắk'>Đắk Lắk</option>
+                                            <option value='Đắk Nông'>Đắk Nông</option>
+                                            <option value='Đồng Nai'>Đồng Nai</option>
+                                            <option value='Đồng Tháp'>Đồng Tháp</option>
+                                            <option value='Gia Lai'>Gia Lai</option>
+                                            <option value='Hải Phòng'>Hải Phòng</option>
+                                            <option value='Hà Giang'>Hà Giang</option>
+                                            <option value='Hà Nam'>Hà Nam</option>
+                                            <option value='Hà Tĩnh'>Hà Tĩnh</option>
+                                            <option value='Hải Dương'>Hải Dương</option>
+                                            <option value='Hoà Bình'>Hoà Bình</option>
+                                            <option value='Huế'>Huế</option>
+                                            <option value='Khánh Hoà'>Khánh Hoà</option>
+                                            <option value='Kon Tum'>Kon Tum</option>
+                                            <option value='Kiên Giang'>Kiên Giang</option>
+                                            <option value='Lào Cai'>Lào Cai</option>
+                                            <option value='Lai Châu'>Lai Châu</option>
+                                            <option value='Lạng Sơn'>Lạng Sơn</option>
+                                            <option value='Lâm Đồng'>Lâm Đồng</option>
+                                            <option value='Long An'>Long An</option>
+                                            <option value='Nam Định'>Nam Định</option>
+                                            <option value='Nghệ An'>Nghệ An</option>
+                                            <option value='Ninh Thuận'>Ninh Thuận</option>
+                                            <option value='Ninh Bình'>Ninh Bình</option>
+                                            <option value='Quảng Bình'>Quảng Bình</option>
+                                            <option value='Quảng Nam'>Quảng Nam</option>
+                                            <option value='Quảng Ngãi'>Quảng Ngãi</option>
+                                            <option value='Quảng Ninh'>Quảng Ninh</option>
+                                            <option value='Quảng Trị'>Quảng Trị</option>
+                                            <option value='Phú Thọ'>Phú Thọ</option>
+                                            <option value='Sóc Trăng'>Sóc Trăng</option>
+                                            <option value='Sơn La'>Sơn La</option>
+                                            <option value='Tây Ninh'>Tây Ninh</option>
+                                            <option value='Thái Bình'>Thái Bình</option>
+                                            <option value='Thái Nguyên'>Thái Nguyên</option>
+                                            <option value='Thanh Hoá'>Thanh Hoá</option>
+                                            <option value='Tiền Giang'>Tiền Giang</option>
+                                            <option value='Trà Vinh'>Trà Vinh</option>
+                                            <option value='Tuyên Quang'>Tuyên Quang</option>
+                                            <option value='Vĩnh Long'>Vĩnh Long</option>
+                                            <option value='Vĩnh Phúc'>Vĩnh Phúc</option>
+                                            <option value='Yên Bái'>Yên Bái</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Số điện thoại</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.Phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label">Email</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.Email">
+                                </div>
+                            </div>
+                           
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Doanh nghiệp</label>
+                                <div class="col-md-7">
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="tam"  disabled="true">
+                                        <option value="">Chọn doanh nghiệp</option>
+                                        <option repeat.for="item of ListCompany" value.bind="item.BusinessCode">${item.Name}</option>
+                                    </select>
+                                </div>
+                            </div>
+                          
+                            <div class="form-group ">
+                                <label for="inputType" class="col-md-3 control-label">Mã nhân viên</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="inputType" value.bind="User.MaNv">
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="inputType" class="col-md-3 control-label">Nghề nghiệp</label>
+                                <div class="col-md-7">
+                                    <!--<input type="text" class="form-control" id="inputType" value.bind="User.Chucvu">-->
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.Nghenghiep">
+                                          <option value="">Chọn nghề nghiệp</option>  
+                                    <option value="Học sinh/sinh viên">Học sinh/sinh viên</option>
+                                    <option value="Giáo viên">Giáo viên</option>
+                                    <option value="Công viên chức">Công viên chức</option>
+                                    <option value="Công nhân">Công nhân</option>
+                                    <option value="Kinh doanh/bán Hàng">Kinh doanh/bán Hàng</option>
+                                    <option value="Truyền thông/Quảng cáo">Truyền thông/Quảng cáo</option>
+                                    <option value="Kỹ sư">Kỹ sư</option>
+                                    <option value="Y tế">Y tế</option>
+                                    <option value="IT">IT</option>
+                                    <option value="Nhân viên văn phòng">Nhân viên văn phòng</option>
+                                    <option value="Tài chính/kế toán">Tài chính/kế toán</option>
+                                    <option value="An ninh/Bảo vệ">An ninh/Bảo vệ</option>
+                                    <option value="Nghệ thuật/Âm nhạc">Nghệ thuật/Âm nhạc</option>
+                                    <option value="Tài xế">Tài xế</option>
+                                    <option value="NV thị trường">NV thị trường</option>
+                                    <option value="1"> Khác ( nêu rõ ) </option>
+                                    </select>
+
+                                </div>
+                            </div>
+                          
+                            <span>Thông tin đơn hàng</span>
+                            <hr>
+                            <div class="form-group form-group required">
+                                <h5><label class="col-md-3 control-label">Địa chỉ giao hàng</label></h5>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="" required="true" value.bind="User.AddressShipping">
+                                    <div class="row">
+                                        </br>
+                                        <div class="col-md-4">
+                                            <select value.bind="tinhthanhid" class="form-control">
+                                                <option value="0">Tỉnh/Thành Phố</option>
+                                                <option repeat.for="status of AddressDW" value.bind="status.Code">${status.Name}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select value.bind="quanhuyenid" class="form-control">
+                                                <option value="">Quận/huyện</option>
+                                                <option repeat.for="status of ListWard" value.bind="status.Code">${status.Name}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="height: 40px;">
+                        <span style="float: right; color: red">(*) là các trường bắt buộc nhập</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Chọn đơn vị trả góp</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" click.delegate="attached()">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <input type="checkbox" checked=true>
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="dist/Resources/Images/u230.png" alt="" style="height:40px;width:50px;" class="img-responsive">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label" style="margin-left:0px !important">Hình thức</label>
+                                <div class="col-md-3">
+                                    <select style="width:100%;height:30px">
+                                        <option>Trả góp 0%</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label" style="margin-left:0px !important">Trả trước</label>
+                                <div class="col-md-3">
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.Tratruoc">
+                                        <option repeat.for="item of dataSelect.Cauhinh.TraTruoc" value.bind="item.Value">${item.Name}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    Khách hàng trả trước
+                                </div>
+                                <div class="col-md-3">
+                                    ${showMoney.TienTratruoc}VND
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputType" class="col-md-3 control-label" style="margin-left:0px !important">Thời hạn vay</label>
+                                <div class="col-md-3">
+                                    <select name="" id="" style="width:100%;height:30px" value.bind="User.Thoihanvay">
+                                        <option repeat.for="item of dataSelect.Cauhinh.ThoiHanVay" value.bind="item.Value">${item.Name}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    Số tiền trả góp
+                                </div>
+                                <div class="col-md-3">
+                                    ${showMoney.Tientragop}VND
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="margin-top: -2px !important;">
+                    <div class="panel-heading">
+                        <h4>Thông tin sản phẩm</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <img src="${product.ImageDetail| convertToImange}" alt="" height="86px" width="86px" class="col-md-offset-2">
+                            <h6 class="col-md-offset-2">${product.ProductName}</h6>
+                            <b class="col-md-offset-2">Giá:${product.NoInterestPrice} VND</b>
+                            <div class="form-group col-md-offset-2 required">
+                                <label for="inputType" class="col-md-1 control-label" style="margin-left:0px !important;width:50%">số lượng:</label>
+                                <input type="number" class="form-control" id="inputType" value.bind="User.Amount" style="width:20%" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                            </div>
+                        </div>
+                        <label for="">Chọn màu</label>
+                        <hr>
+                        <div class="form-group" class="checkbox" repeat.for="item of ListColor">
+                            <input type="radio" name="color" model.bind="item" checked.bind="$parent.selectedColor" style="height:20px" class="col-md-1">
+                            <div class="col-md-1">
+                                <img src="${item.Thumbs| convertToImange}" alt="" style="height:40px;width:30px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" click.delegate="addToCart()">Tiếp tục</button>
+                    <button class="btn btn-primary" click.delegate="backToListProducts()">Quay lại</button>
+                </div>
+            </div>
+        </div>
+        <!--End Row-->
+    </section>
+    <style>
+    .form-horizontal .control-label {
+        padding-top: 7px;
+        margin-bottom: 0;
+        text-align: left;
+        margin-left: 20px;
+    }
+    
+    .form-group.required .control-label:after {
+        content: " *";
+        color: red;
+    }
+    </style>
+</template>

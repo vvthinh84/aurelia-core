@@ -1,0 +1,101 @@
+<template>
+  <require from="Resources/Styles/quay-so-gift.css"></require>
+  <section>
+    <h3 style="margin-bottom: 30px;">
+      <b>DANH SÁCH KHÁCH HÀNG</b>
+    </h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lọc</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline form-filter"
+              role="form"
+              submit.delegate="search()">
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="">Chọn Event</label>
+              <br />
+              <select class="form-control"
+                      id="eventId"
+                      name="eventId"
+                      value.bind="jsonToPost.Event">
+                <option value="1">05 IPhone 5s 16Gb Silver/ Gray</option>
+                <option value="2">10 Học bổng đến trường, trị giá 5tr/ Học bổng</option>
+                <option value="3">20 Loa JBL Cao cấp, trị giá 1tr490</option>
+                <!-- <option value="2">Tuần 2</option>
+                  <option value="3">Tuần 3</option>
+                  <option value="4">Tuần 4</option>
+                  <option value="5">Tuần 5</option>
+                  <option value="6">Tuần 6</option> -->
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="">Chọn Tuần</label>
+              <br />
+              <select class="form-control"
+                      name="filterStatus"
+                      ref="filterStatus"
+                      value.bind="jsonToPost.Tuan">
+                <option value="1">Tuần 1</option>
+                <option value="2">Tuần 2</option>
+                <option value="3">Tuần 3</option>
+                <option value="4">Tuần 4</option>
+                <option value="5">Tuần 5</option>
+                <option value="6">Tuần 6</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <button class="btn btn-default"
+                      name="Lọc"
+                      type="submit">Lọc</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered"
+             id="tableDsKhachHang">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Chi nhánh</th>
+            <th>Tên kho</th>
+            <th>Tên khách hàng</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>InvoiceNo</th>
+            <th>MaKh</th>
+            <th>Ngày tạo</th>
+          </tr>
+        </thead>
+        <tbody items.bind="ListKhachHang"
+               ref="DsKhachHangData">
+          <tr repeat.for="kh of DsKhachHangData.items | takeFromTo: (current-1)* (itemperpage):current * (itemperpage)">
+            <td>${kh.Id}</td>
+            <td>${kh.MaCn}</td>
+            <td>${kh.TenKho}</td>
+            <td>${kh.TenKH}</td>
+            <td>${kh.Phone}</td>
+            <td>${kh.DiaChi}</td>
+            <td>${kh.InvoiceNo}</td>
+            <td>${kh.MaKh}</td>
+            <td>${kh.CreatedDate}</td>
+          </tr>
+          <tr if.bind="DsKhachHangData.items.length &gt; 0">
+            <td colspan="9">
+              <pagination current-page.bind="current"
+                          item-per-page.bind="itemperpage"
+                          page-size.bind="pagesize"
+                          total.bind="DsKhachHangData.items.length"></pagination>
+            </td>
+          </tr>
+          <tr if.bind="!ListKhachHang || ListKhachHang.items.length &lt;= 0">
+            <td colspan="9">Không tìm thấy khách hàng nào.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</template>

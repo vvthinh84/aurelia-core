@@ -1,0 +1,110 @@
+<template>
+    <div class="panel panel-default col-md-4 col-md-offset-4 col-sm-12" style="margin-top: 100px;background-color: #fff">
+      <div class="panel-body"></div>
+      <form class="form" role="form" submit.delegate="UpdateUser(UserInfo)" validate.bind="validation">
+
+         <h3 class="col-md-offset-4" style="color:#333;">Sửa thông tin</h3>
+
+         <div class="form-group">
+          <label>Họ và tên</label>
+          <div class="col-md-12 input-group">
+
+            <input class="form-control" type="text"  value.bind="UserInfo.Fullname" placeholder="FullName">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label>Email </label>
+          <div class="col-md-12 input-group">
+
+            <input class="form-control" type="text" placeholder="Email" value.bind="UserInfo.Email">
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <div class="col-md-12 input-group">
+
+            <input class="form-control" type="text"  placeholder="Phone" value.bind="UserInfo.Phone">
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label>Chứng minh thư</label>
+          <div class="col-md-12 input-group">
+
+            <input class="form-control" type="text"  placeholder="Chứng minh thư" value.bind="UserInfo.PersonalId">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Mã nhân viên</label>
+          <div class="col-md-12 input-group">
+
+            <input class="form-control" type="text"  placeholder="Mã nhân viên" value.bind="UserInfo.EmployeeId">
+          </div>
+        </div>
+
+         <div class="form-group">
+            <label>Ngày sinh</label>
+
+            <div class="col-sm-12 input-group date" style="width: 70%;">
+              <input type="text" id="dtBannerStartDate"class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+          </div>
+
+
+
+        <div class="form-group">
+          <div class="col-md-5 col-md-offset-4" style="margin-bottom:10px;">
+            <button type="submit" class="btn btn-primary" disabled.bind="!validation.result.isValid" disabled>Sửa thông tin</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </section>
+  </div>
+  <style>
+    .form-group {
+      width:80%;
+      margin: 0 auto;
+      margin-bottom: 25px;
+
+    }
+    .form-group label{color:#333;}
+
+    p.aurelia-validation-message {
+      display: inline;
+      margin-left: 5px;
+    }
+    p.aurelia-validation-message:empty {
+      display: none;
+    }
+    .has-success label {
+      color: #3c763d;
+    }
+    .has-warning label {
+      color: #DD280B;
+    }
+
+    .profile-img-card {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    body {
+      background: #e6e7e8 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAALklE…u7hYGLIARJIZLAVgSlwK4JDYFKJLoCjAkkRVglYQpAAD+vBrND3AxrgAAAABJRU5ErkJggg==") repeat;
+    }
+  </style>
+</template>
