@@ -1,0 +1,60 @@
+<template>
+    <style>
+        .panel-actions {
+  margin-top: -20px;
+  margin-bottom: 0;
+  text-align: right;
+}
+.panel-actions a {
+  color:#333;
+}
+.panel-fullscreen {
+    display: block;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+}
+.panel-default{
+    height:100%;
+}
+.panel{
+    height:100%;
+    }
+/*close button*/
+    .panel-heading span
+{
+    /*margin-top: -26px;*/
+    font-size: 15px;
+    /*margin-right: -12px;*/
+}
+
+.clickable {
+    background: rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    </style>
+        <div  id.bind="pId" css.bind="pCss">           
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${pTitle} </h3>
+                    <ul class="list-inline panel-actions">
+                        <li><a id="full-${pId}" role="button" title="Toggle fullscreen" > <i class="glyphicon glyphicon-resize-full"></i></a></li>
+                        <li><a role="button" title="Toggle fullscreen" click.delegate="close()"><i class="glyphicon gglyphicon glyphicon-remove"  ></i></a></li>
+
+                    </ul>
+                </div>
+                <div class="panel-body">
+                      <div as-element="compose" view.bind="pView" view-model.bind="pViewModel"  model.bind="pModel"></div>
+                </div>
+            </div>
+        </div>
+</template>

@@ -2,52 +2,36 @@
 <html>
 
 <head>
-    <title>VTA ADMINCP</title>
+    <title>Easyweb Admin</title>
+    <!--The FontAwesome version is locked at 4.6.3 in the package.json file to keep this from breaking.-->
     <link rel="stylesheet" href="jspm_packages/npm/font-awesome@4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="jspm_packages/github/twbs/bootstrap@3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="bower_components/trumbowyg/dist/ui/trumbowyg.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="jspm_packages/npm/toastr@2.1.2/package/toastr.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="styles/styles.css">
-
+    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
+    <link rel="stylesheet" href="bower_components/summernote/dist/summernote.css">
+    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="bower_components/magnific-popup/dist/magnific-popup.css">
+    <link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="expires" content="-1">
-    <meta http-equiv="pragma" content="no-cache">
 </head>
 
 <body aurelia-app="main">
     <div class="splash">
-        <div class="logo clearfix verdes">
-            <div class="verdes-element">
-                <a class="logo-vta" href="/"><img class="img-responsive" alt="" src="dist/Resources/Images/logo_vienthonga.jpg"></a>
-            </div>
-        </div>
-        <div class="main-title">
-            <p class="message">ADMINCP</p>
-        </div>
-        <i class="fa fa-spinner fa-pulse"></i>
+        <div class="message">EasyWeb Admin</div>
+        <i class="fa fa-spinner fa-spin"></i>
     </div>
 
+    <!-- The bluebird version is locked at 4.6.3 in the package.json file to keep this from breaking -->
+    <!-- We include bluebird to bypass Edge's very slow Native Promise implementation. The Edge team -->
+    <!-- has fixed the issues with their implementation with these fixes being distributed with the  -->
+    <!-- Windows 10 Anniversary Update on 2 August 2016. Once that update has pushed out, you may    -->
+    <!-- consider removing bluebird from your project and simply using native promises if you do     -->
+    <!-- not need to support Internet Explorer.                                                      -->
+    <script src="jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js"></script>
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script>
-        var systemLocate = System.locate;
-        System.cacheBust = '?ver=' + Date.now();
-
-        System.locate = function(load) {
-            var System = this;
-            return Promise.resolve(systemLocate.call(this, load))
-                .then(function(address) {
-                    if (address.lastIndexOf("html.js") > -1) return address;
-                    return address + System.cacheBust;
-                });
-        };
-
         System.import('aurelia-bootstrapper');
     </script>
-
 </body>
 
 </html>

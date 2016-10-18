@@ -1,28 +1,26 @@
 <template>
   <section>
-    <div class="panel panel-default col-md-4 col-md-offset-4 col-sm-12" style="margin-top: 100px;">
+    <!-- <h2 style="text-align: center; line-height: 55px;  margin: 30px 10px; text-transform: uppercase">Đăng nhập</h2> -->
+      <div class="splash" if.bind="logging">
+            <i class="fa fa-spinner fa-spin"></i>
+      </div>
+    <div if.bind="!logging" class="panel panel-default col-md-4 col-md-offset-4 col-sm-12" style="margin-top: 100px;">
       <div class="panel-body"></div>
-      <form class="form" role="form" submit.delegate="login()" validate.bind="validation">
-        <img id="profile-img" class="profile-img-card" src="dist/Resources/Images/vta_login.png"/>
+      <form class="form" role="form" submit.delegate="submit()" > 
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <div class="form-group">
-              <div class="splash" if.bind="!pendding" style=" margin-top: -44%;">
-              <i class="fa fa-spinner fa-pulse" style="
-                                        margin-top: 48%;
-                                        margin-left: 1%;
-                                    "></i>
-              </div>
-          <label for="username">Tài khoản</label>
+          <label  class="control-label" for="username">Tài khoản</label>
           <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control" type="text" id="username" placeholder="Tài khoản" value.bind="username" validate="username">
+            <input class="form-control" type="text" id="username" placeholder="Tài khoản" value.bind="Login.UserName & validate">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="pwd">Mật khẩu</label>
+          <label class="control-label" for="pwd">Mật khẩu</label>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input class="form-control" type="password" id="pwd" placeholder="Mật khẩu" value.bind="password" validate="password">
+            <input class="form-control" type="password" id="pwd" placeholder="Mật khẩu" value.bind="Login.Password & validate" >
           </div>
         </div>
 
@@ -35,35 +33,64 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="" style="width: 150px; margin-bottom: 35px; margin-left: 50px;">
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          <div class="" style="width: 150px; margin-bottom: 35px; margin-left: 100px;">
+            <!--<button type="submit" class="btn btn-primary" disabled.bind="!validation.result.isValid" >Đăng nhập</button>-->
+                        <button type="submit" class="btn btn-primary"  >Đăng nhập</button>
           </div>
         </div>
+         <div class="ui modal" id="modal1" semantic_modal>
+      <i class="close icon"></i>
+      <div class="header">
+        Profile Picture
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="">
+        </div>
+        <div class="description">
+          <div class="ui header">We've auto-chosen a profile image for you.</div>
+          <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image
+            associated with your registered e-mail address.</p>
+          <p>Is it okay to use this photo?</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button">
+          Nope
+        </div>
+        <div class="ui positive right labeled icon button">
+          Yep, that's me
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+   <a class="item" id="logIn">
+    <i class="user icon"></i> Log In 
+</a>
       </form>
     </div>
   </section>
+  </div>
   <style>
+    .form-group {
+      width: 50%;
+      margin: 0 auto;
+      margin-bottom: 25px;
+    }
+
+    .profile-img-card {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
     body {
-  background: #e6e7e8 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAALklE…u7hYGLIARJIZLAVgSlwK4JDYFKJLoCjAkkRVglYQpAAD+vBrND3AxrgAAAABJRU5ErkJggg==") repeat;
-}
 
-.form-group {
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 25px;
-}
+    }
+  </style>
 
-.profile-img-card {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-}
-
-body > div > router-view > section > div > form > div:nth-child(5) > div > button {
-  margin-left: 27px;
-  width: 150px;
-}
-
-    </style>
 </template>

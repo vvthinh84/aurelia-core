@@ -1,0 +1,196 @@
+<template>
+  <style>
+    .ui.accordion tbody.ui.content.active {
+      display: table-row-group;
+    }
+    #ncolor {
+    background-color: #0000ff;
+    height: 30px;
+    width: 30px;
+}
+#ncpicker {
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+#ncpicker>div {
+    position: absolute;
+}
+
+  </style>
+  <section>
+    <!--<table class="ui table accordion">
+      <thead>
+        <tr bgcolor="#6699FF">
+          <th></th>
+          <th>Tiêu để</th>
+          <th>Họ Tên</th>
+          <th>Sản phẩm</th>
+        </tr>
+      </thead>
+      <tbody class="ui title">
+        <tr>
+          <td><i class="dropdown icon"></i></td>
+          <td>Row 1, Col 1</td>
+          <td>Row 1, Col 2</td>
+          <td>Row 1, Col 3</td>
+        </tr>
+      </tbody>
+
+      <tbody class="ui content">
+        <tr>
+          <td colspan="4">
+            <div class="tab demo">
+              <div class="ui secondary menu">
+                <a class="item" data-tab="first">First</a>
+                <a class="item active" data-tab="second">Second</a>
+                <a class="item" data-tab="third">Third</a>
+              </div>
+              <div class="ui tab segment" data-tab="first">
+                <div class="ui top attached tabular menu">
+                  <a class="active item" data-tab="first/a">1A</a>
+                  <a class="item" data-tab="first/b">1B</a>
+                  <a class="item" data-tab="first/c">1C</a>
+                </div>
+                <div class="ui bottom attached active tab segment" data-tab="first/a">1A</div>
+                <div class="ui bottom attached tab segment" data-tab="first/b">1B</div>
+                <div class="ui bottom attached tab segment" data-tab="first/c">1C</div>
+              </div>
+              <div class="ui tab segment active" data-tab="second">
+                <div class="ui top attached tabular menu">
+                  <a class="item" data-tab="second/a">2A</a>
+                  <a class="item" data-tab="second/b">2B</a>
+                  <a class="item active" data-tab="second/c">2C</a>
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="second/a">2A</div>
+                <div class="ui bottom attached tab segment" data-tab="second/b">2B</div>
+                <div class="ui bottom attached tab segment active" data-tab="second/c">2C</div>
+              </div>
+              <div class="ui tab segment" data-tab="third">
+                <div class="ui top attached tabular menu">
+                  <a class="item" data-tab="third/a">3A</a>
+                  <a class="item" data-tab="third/b">3B</a>
+                  <a class="item" data-tab="third/c">3C</a>
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="third/a">3A</div>
+                <div class="ui bottom attached tab segment" data-tab="third/b">3B</div>
+                <div class="ui bottom attached tab segment" data-tab="third/c">3C</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="ui title">
+        <tr>
+          <td><i class="dropdown icon"></i></td>
+          <td>Row 1, Col 1</td>
+          <td>Row 1, Col 2</td>
+          <td>Row 1, Col 3</td>
+        </tr>
+      </tbody>
+
+      <tbody class="ui content">
+        <tr>
+          <td colspan="4">Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2,
+            Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1
+            Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2,
+            Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1</td>
+        </tr>
+      </tbody>
+      <tbody class="ui title">
+        <tr>
+          <td><i class="dropdown icon"></i></td>
+          <td>Row 1, Col 1</td>
+          <td>Row 1, Col 2</td>
+          <td>Row 1, Col 3</td>
+        </tr>
+      </tbody>
+
+      <tbody class="ui content">
+        <tr>
+          <td colspan="4">Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2,
+            Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1
+            Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2,
+            Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1 Row 2, Col 1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ui icon button" senam_tooltip data-content="Add users to your feed">
+      <i class="add icon"></i>
+    </div>
+
+    <div class="ui checkbox" checkbox_seman>
+      <input type="checkbox">
+      <label>Checkbox</label>
+    </div>
+
+    <div class="ui multiple selection dropdown" semantic_dropdown>
+  <input name="gender" type="hidden" value="default,default2">
+  <i class="dropdown icon"></i>
+  <div class="default text">Default</div>
+  <div class="menu">
+      <div class="item" data-value="0">Value</div>
+      <div class="item" data-value="1">Another Value</div>
+      <div class="item" data-value="default">Default Value</div>
+      <div class="item" data-value="default2">Second Default</div>
+  </div>
+</div>
+<div class="ui divider"></div>
+<div class="ui selection dropdown">
+  <input name="gender" type="hidden" value="default">
+  <i class="dropdown icon"></i>
+  <div class="default text">Select a value</div>
+  <div class="menu">
+      <div class="item" data-value="0">Value</div>
+      <div class="item" data-value="1">Another Value</div>
+  </div>
+ </div>
+<div class="ui divider"></div>
+<div class="ui selection dropdown">
+  <input name="gender" type="hidden" value="default">
+  <i class="dropdown icon"></i>
+  <div class="text">Default Value</div>
+  <div class="menu">
+      <div class="item" data-value="0">Value</div>
+      <div class="item" data-value="1">Another Value</div>
+      <div class="item" data-value="default">Default Value</div>
+  </div>
+ </div>
+<div class="ui divider"></div>
+<div class="ui primary button">
+    Restore All Dropdowns
+</div>-->
+   
+    <div class="ui modal" id="modal1" semantic_modal>
+      <i class="close icon"></i>
+      <div class="header">
+        Profile Picture
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="">
+        </div>
+        <div class="description">
+          <div class="ui header">We've auto-chosen a profile image for you.</div>
+          <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image
+            associated with your registered e-mail address.</p>
+          <p>Is it okay to use this photo?</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui black deny button">
+          Nope
+        </div>
+        <div class="ui positive right labeled icon button">
+          Yep, that's me
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+   <a class="item" id="logIn">
+    <i class="user icon"></i> Log In 
+</a>
+<input type="text" maxlength="6" size="6" id="colorSelector" value="00ff00" />
+  </section>
+
+</template>

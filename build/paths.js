@@ -1,16 +1,23 @@
 var appRoot = 'src/';
 var outputRoot = 'dist/';
-var exportSrvRoot = 'export/';
+var exporSrvtRoot = 'export/';
+const deployRoot = 'deploy/BackendEasyWeb';
 
 module.exports = {
   root: appRoot,
-  source: appRoot + '**/*.js',
+  source: appRoot + '**/*.ts',
   html: appRoot + '**/*.html',
   css: appRoot + '**/*.css',
   style: 'styles/**/*.css',
   output: outputRoot,
-  exportSrv: exportSrvRoot,
+  exportSrv: exporSrvtRoot,
   doc: './doc',
-  e2eSpecsSrc: 'test/e2e/src/**/*.js',
-  e2eSpecsDist: 'test/e2e/dist/'
-};
+  e2eSpecsSrc: 'test/e2e/src/**/*.ts',
+  e2eSpecsDist: 'test/e2e/dist/',
+  dtsSrc: [
+    './typings/**/*.d.ts',
+    './custom_typings/**/*.d.ts'
+  ],
+  deploy: deployRoot
+
+}
